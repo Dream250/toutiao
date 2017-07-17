@@ -42,4 +42,8 @@ public class NewsService {
     public  void addNews(News news){
          newsDAO.addNews(news);
     }
+
+    public News selectById(int newsId){
+        return newsDAO.selectById(newsId);
+    }
 }
