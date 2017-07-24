@@ -5,11 +5,14 @@ import java.util.Date;
 /**
  * Created by Administrator on 2017/7/18.
  */
-public class Command {
+public class Comment {
     private int id;
     private int userId;
     private  String content;
     private int entityId;
+    private int entityType;
+    private Date createdDate;
+    private int status;
 
     public int getId() {
         return id;
@@ -67,9 +70,7 @@ public class Command {
         this.status = status;
     }
 
-    private int entityType;
-    private Date createdDate;
-    private int status;
+
 
 
 }

@@ -27,7 +27,7 @@
                   </div>
             <div class="user-info">
                 <div class="user-avatar">
-                    <a href="http://nowcoder.com/u/125701"><img width="32" class="img-circle" src="${owner.headUrl}"></a>
+                    <a href="/user/$!{owner.id}"><img width="32" class="img-circle" src="${owner.headUrl}"></a>
                 </div>
 
                 </div>
@@ -59,7 +59,7 @@
             <div id="comments" class="comments">
                 #foreach($commentvo in $comments)
                 <div class="media">
-                    <a class="media-left" href="http://nowcoder.com/u/210176">
+                    <a class="media-left" href="/user/$!{commentvo.user.id}">
                         <img src="$!{commentvo.user.headUrl}">
                     </a>
                     <div class="media-body">
@@ -97,21 +97,9 @@
                   // _report('send_msg', res.err_msg)
                 });
               });
-
-              // $(window).on('touchmove scroll', function() {
-              //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-              //     $('div.backdrop').show();
-              //     $('div.share-help').show();
-              //   } else {
-              //     $('div.backdrop').hide();
-              //     $('div.share-help').hide();
-              //   }
-              // });
-
             });
 
           })
         </script>
     </div>
-
 #parse("footer.html")

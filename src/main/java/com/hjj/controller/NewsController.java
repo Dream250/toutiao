@@ -1,9 +1,10 @@
 package com.hjj.controller;
 
-import com.hjj.model.HostHolder;
-import com.hjj.model.News;
+import com.hjj.model.*;
+import com.hjj.service.CommentService;
 import com.hjj.service.NewsService;
 import com.hjj.service.QiniuService;
+import com.hjj.service.UserService;
 import com.hjj.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,9 +15,12 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.View;
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/11.
@@ -31,18 +35,58 @@ public class NewsController {
     QiniuService qinniuService;
     @Autowired
     HostHolder hostHolder;
+    @Autowired
+    CommentService commentService;
+    @Autowired
+    UserService userService;
 
     @RequestMapping(path={"/news/{newsId}"}, method ={RequestMethod.GET})
     public String newsDetail(@PathVariable("newsId") int newsId,
                              Model model){
-        News news = newsService.selectById(newsId);
-        if(null!=news){
-            //todo
-        }
-
+        try {
+            News news = newsService.selectById(newsId);
+            if (null != news) {
+                List<Comment> comments = commentService.getCommentsByEntity(news.getId(), EntityType.ENTITY_NEWS);
+                List<ViewObject> commentVOs = new ArrayList<ViewObject>();
+                logger.info("数量："+comments.size());
+                for (Comment comment : comments) {
+                    ViewObject vo = new ViewObject();
+                    vo.set("comment", comment);
+                    vo.set("user", userService.getUser(comment.getUserId()));
+                    commentVOs.add(vo);
+                }
+                model.addAttribute("comments", commentVOs);
+            }
+            model.addAttribute("news", news);
+            model.addAttribute("owner", userService.getUser(news.getUserId()));
+        }catch (Exception e){
+        logger.error("获取资讯明细错误" + e.getMessage());
+       }
         return "detail";
     }
 
+    @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST})
+    public String addComment(@RequestParam("newsId") int newsId,
+                             @RequestParam("content") String content) {
+        try{
+            Comment comment=new Comment();
+            comment.setUserId(hostHolder.getUser().getId());
+            comment.setContent(content);
+            comment.setEntityId(newsId);
+            comment.setEntityType(EntityType.ENTITY_NEWS);
+            comment.setCreatedDate(new Date());
+            comment.setStatus(0);
+
+            commentService.addComment(comment);
+            //评论数量
+            int count=commentService.getCommentCount(comment.getEntityId(),comment.getEntityType());
+            newsService.updateCommentCount(comment.getEntityId(),count);
+            //todo 异步
+        }catch (Exception e){
+            logger.error("错误" + e.getMessage());
+        }
+        return "redirect:/news/"+String.valueOf(newsId);
+    }
 
     @RequestMapping(path = {"/image"}, method = {RequestMethod.GET})
     @ResponseBody

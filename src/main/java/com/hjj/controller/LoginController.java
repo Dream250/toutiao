@@ -36,23 +36,25 @@ public class LoginController {
     public String login(Model model,
                         @RequestParam("username") String username,
                         @RequestParam("password") String password,
-                        @RequestParam(value="rember",defaultValue = "0") int rememberme){
+                        @RequestParam(value="rember",defaultValue = "0") int rememberme,
+                        HttpServletResponse response){
 
         try{
             Map<String,Object> map=userService.login(username,password);
             if(map.containsKey("ticket")){
                 Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
                 cookie.setPath("/");
-                if(rememberme>1){
+                if(rememberme>0){
                     cookie.setMaxAge(3600*24*5);
                 }
-                return Util.getJSONString(0, "注册成功");
+                response.addCookie(cookie);
+                return Util.getJSONString(0, "成功");
             }else{
                 return Util.getJSONString(1, map);
             }
         }catch (Exception e){
-            logger.error("注册异常" + e.getMessage());
-            return Util.getJSONString(1, "注册异常");
+            logger.error("异常" + e.getMessage());
+            return Util.getJSONString(1, "异常");
         }
     }
 
