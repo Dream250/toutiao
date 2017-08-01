@@ -1,7 +1,10 @@
 package com.hjj.controller;
 
+import com.hjj.model.EntityType;
+import com.hjj.model.HostHolder;
 import com.hjj.model.News;
 import com.hjj.model.ViewObject;
+import com.hjj.service.LikeService;
 import com.hjj.service.NewsService;
 import com.hjj.service.ToutiaoService;
 import com.hjj.service.UserService;
@@ -27,6 +30,10 @@ public class HomeController {
     UserService userService;
     @Autowired
     ToutiaoService toutiaoService;
+    @Autowired
+    HostHolder hostHolder;
+    @Autowired
+    LikeService likeService;
 
     @RequestMapping(path = {"/", "/index"},method = {RequestMethod.GET,RequestMethod.POST})
     public String index(Model model,
@@ -46,11 +53,18 @@ public class HomeController {
 
     private List<ViewObject> getNews(int userId, int offset, int limit) {
         List<News> newsList = toutiaoService.getLatestNews(userId, offset, limit);
+        int localUserId = hostHolder.getUser() !=null?hostHolder.getUser().getId():0;
         List<ViewObject> vos = new ArrayList<>();
         for (News news : newsList) {
             ViewObject vo = new ViewObject();
             vo.set("news", news);
             vo.set("user", userService.getUser(news.getUserId()));
+
+            if(localUserId!=0){
+                vo.set("like",likeService.getLikeStatus(localUserId, EntityType.ENTITY_NEWS,news.getId()));
+            }else{
+                vo.set("like",0);
+            }
             vos.add(vo);
         }
         return vos;

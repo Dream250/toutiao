@@ -1,10 +1,7 @@
 package com.hjj.controller;
 
 import com.hjj.model.*;
-import com.hjj.service.CommentService;
-import com.hjj.service.NewsService;
-import com.hjj.service.QiniuService;
-import com.hjj.service.UserService;
+import com.hjj.service.*;
 import com.hjj.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,13 +36,25 @@ public class NewsController {
     CommentService commentService;
     @Autowired
     UserService userService;
+    @Autowired
+    LikeService likeService;
 
     @RequestMapping(path={"/news/{newsId}"}, method ={RequestMethod.GET})
     public String newsDetail(@PathVariable("newsId") int newsId,
                              Model model){
         try {
             News news = newsService.selectById(newsId);
+
+
             if (null != news) {
+                int localUserId = hostHolder.getUser() !=null?hostHolder.getUser().getId():0;
+                if(localUserId!=0){
+                    model.addAttribute("like",likeService.getLikeStatus(localUserId, EntityType.ENTITY_NEWS,news.getId()));
+                }else{
+                    model.addAttribute("like",0);
+                }
+
+
                 List<Comment> comments = commentService.getCommentsByEntity(news.getId(), EntityType.ENTITY_NEWS);
                 List<ViewObject> commentVOs = new ArrayList<ViewObject>();
                 logger.info("数量："+comments.size());
