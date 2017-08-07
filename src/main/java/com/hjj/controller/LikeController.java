@@ -1,7 +1,11 @@
 package com.hjj.controller;
 
+import com.hjj.async.EventModel;
+import com.hjj.async.EventProducer;
+import com.hjj.async.EventType;
 import com.hjj.model.EntityType;
 import com.hjj.model.HostHolder;
+import com.hjj.model.News;
 import com.hjj.service.LikeService;
 import com.hjj.service.NewsService;
 import com.hjj.util.Util;
@@ -24,13 +28,24 @@ public class LikeController {
     LikeService likeService;
     @Autowired
     NewsService newsService;
+    @Autowired
+    EventProducer eventProducer;
 
     @RequestMapping(path={"/like"},method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
     public String like(@RequestParam("newsId") int newsId){
         int userId=hostHolder.getUser().getId();
         long likeCount=likeService.like(userId, EntityType.ENTITY_NEWS,newsId);
+
+        // 更新喜欢数
+        News news = newsService.getById(newsId);
+
         newsService.updateLikeCount(newsId,(int) likeCount);
+
+        eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                .setActorId(hostHolder.getUser().getId()).setEntityId(newsId));
+
+
         return Util.getJSONString(0,String.valueOf(likeCount));
     }
 

@@ -43,6 +43,10 @@ public class NewsService {
          newsDAO.addNews(news);
     }
 
+    public News getById(int newsId) {
+        return newsDAO.getById(newsId);
+    }
+
     public News selectById(int newsId){
         return newsDAO.selectById(newsId);
     }
