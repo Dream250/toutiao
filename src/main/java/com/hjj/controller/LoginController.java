@@ -1,5 +1,8 @@
 package com.hjj.controller;
 
+import com.hjj.async.EventModel;
+import com.hjj.async.EventProducer;
+import com.hjj.async.EventType;
 import com.hjj.service.UserService;
 import com.hjj.util.Util;
 import jdk.nashorn.internal.ir.RuntimeNode;
@@ -25,6 +28,9 @@ public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
+    @Autowired
+    EventProducer eventProducer;
+
     @RequestMapping(path={"/logout/"}, method={RequestMethod.GET,RequestMethod.POST})
     public String logout(@CookieValue("ticket") String ticket){
         userService.logout(ticket);
@@ -48,6 +54,11 @@ public class LoginController {
                     cookie.setMaxAge(3600*24*5);
                 }
                 response.addCookie(cookie);
+
+                eventProducer.fireEvent(new
+                        EventModel(EventType.LOGIN).setActorId((int) map.get("userId"))
+                        .setExt("username", username).setExt("to", "250"));
+
                 return Util.getJSONString(0, "成功");
             }else{
                 return Util.getJSONString(1, map);

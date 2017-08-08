@@ -1,48 +1,48 @@
 package com.hjj.async.handler;
 
+
 import com.hjj.async.EventHandler;
 import com.hjj.async.EventModel;
 import com.hjj.async.EventType;
 import com.hjj.model.Message;
-import com.hjj.model.User;
 import com.hjj.service.MessageService;
-import com.hjj.service.UserService;
+import com.hjj.util.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/8/8.
  */
 @Component
-public class LikeHandler implements EventHandler{
-
+public class LoginExceptionHandler implements EventHandler {
     @Autowired
     MessageService messageService;
 
     @Autowired
-    UserService userService;
+    MailSender mailSender;
 
     @Override
     public void doHandle(EventModel model) {
-      //
         Message message = new Message();
-        User user = userService.getUser(model.getActorId());
-        message.setToId(model.getEntityOwnerId());
-        message.setContent("用户" + user.getName() +
-                " 赞了你的资讯,http://127.0.0.1:8080/news/"
-                + String.valueOf(model.getEntityId()));
+        message.setToId(model.getActorId());
+        message.setContent("你上次的登陆IP异常");
         // SYSTEM ACCOUNT
         message.setFromId(3);
         message.setCreatedDate(new Date());
         messageService.addMessage(message);
+
+
+        Map<String, Object> map = new HashMap();
+        map.put("username", model.getExt("username"));
+        mailSender.sendWithHTMLTemplate(model.getExt("to"), "登陆异常",
+                "mails/welcome.html", map);
     }
 
     @Override
     public List<EventType> getSupportEventTypes() {
-        return Arrays.asList(EventType.LIKE);
+        return Arrays.asList(EventType.LOGIN);
     }
 }
+
