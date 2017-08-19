@@ -12,7 +12,6 @@ import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.View;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -111,21 +110,6 @@ public class NewsController {
     }
 
 
-    /*@RequestMapping(path={"/uploadImage/"},method = {RequestMethod.POST})
-    @ResponseBody
-    public String uploadImage(@RequestParam("file") MultipartFile file){
-        try{
-            String fileUrl= newsService.saveImage(file);
-            if(null==fileUrl) {
-                return Util.getJSONString(1,"上传图片失败！");
-            }
-            return Util.getJSONString(0,fileUrl);
-        }catch (Exception e){
-            logger.error("图片上传失败！"+e.getMessage());
-            return Util.getJSONString(1,"上传图片失败！");
-        }
-    }*/
-
     @RequestMapping(path={"/uploadImage/"},method = {RequestMethod.POST})
     @ResponseBody
     public String uploadImage(@RequestParam("file") MultipartFile file){
@@ -152,6 +136,7 @@ public class NewsController {
             if(hostHolder.getUser() !=null){
                 news.setUserId(hostHolder.getUser().getId());
             }else {
+                //匿名
                 news.setUserId(123);
             }
             news.setImage(image);
@@ -164,4 +149,26 @@ public class NewsController {
             return Util.getJSONString(1,"发布失败！");
         }
     }
+
+    @RequestMapping(path={"/test/"},method = {RequestMethod.POST})
+    @ResponseBody
+    public String uploadVideo(@RequestParam("file") MultipartFile file){
+        try{
+            String fileUrl=qinniuService.uploadVideo(file);
+            logger.error("fileUrl:"+fileUrl);
+            if(null==fileUrl)
+                return Util.getJSONString(1,"上传失败！");
+            return Util.getJSONString(0,fileUrl);
+        }catch (Exception e){
+            logger.error("视频上传失败！"+e.getMessage());
+            return Util.getJSONString(1,"视频上传失败！");
+        }
+    }
+
+    @RequestMapping(path={"/html"})
+    public String h(){
+        return "home2";
+    }
+
+
 }

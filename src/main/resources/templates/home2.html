@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grind Player</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript" src="http://yandex.st/swfobject/2.2/swfobject.min.js"></script>
+    <script type="text/javascript">
+        var flashvars = {
+            src: "http://ouvvok8ir.bkt.clouddn.com/8f782e52fe8e4786baf4e35314ff8e4d.mp4"
+        };
+        var params = {
+            allowFullScreen: true
+            , allowScriptAccess: "always"
+            , bgcolor: "#000000"
+        };
+        var attrs = {
+            name: "player"
+        };
+
+        swfobject.embedSWF("GrindPlayer.swf", "player", "854", "480", "10.2", null, flashvars, params, attrs);
+    </script>
+</head>
+<body>
+<div id="player"></div>
+</body>
+</html>

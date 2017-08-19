@@ -39,6 +39,19 @@ public class NewsService {
         return Util.DOMAIN + "image?name=" + fileName;
     }
 
+    public String saveVideo(MultipartFile file) throws IOException {
+        String name=file.getOriginalFilename();
+        int index=name.lastIndexOf(".");
+        if(index<0) return null;
+        String ext=name.substring(index+1);
+        if(!Util.isVideoFileAllowed(ext)) return null;
+
+        String fileName=UUID.randomUUID().toString().replaceAll("-","")+"."+ext;
+        Files.copy(file.getInputStream(),new File(Util.VIDEO_DIR+fileName).toPath(),
+                StandardCopyOption.REPLACE_EXISTING);
+        return Util.DOMAIN+"video?name="+fileName;
+    }
+
     public  void addNews(News news){
          newsDAO.addNews(news);
     }

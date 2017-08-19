@@ -13,18 +13,36 @@ import java.util.Map;
 public class Util {
     private static final Logger logger = LoggerFactory.getLogger(Util.class);
 
+    /*
+    图片上传
+     */
     public static String QINIU_DOMAIN="http://ot5i0ccl4.bkt.clouddn.com/";
     public static String DOMAIN="http://127.0.0.1:8080/";
     //上传目录
     public static String IMAGE_DIR="D:/upload/";
-    private static String[] IMAGE_FILE_EXTD=new String[] {"png","bmp","jpg","jpeg"};
+    private static String[] IMAGE_FILE_EXT=new String[] {"png","bmp","jpg","jpeg"};
 
     //判断文件后缀名是否符合
     public static boolean isFileAllowed(String fileName){
-        for(String ext : IMAGE_FILE_EXTD){
+        for(String ext : IMAGE_FILE_EXT){
             if(ext.equals(fileName))
                 return true;
         }
+        return false;
+    }
+
+    /*
+    上传视频
+     */
+    public static String QINIU_DOMAIN2="http://ouvvok8ir.bkt.clouddn.com";
+   // public static String DOMAIN="http://127.0.0.1:8080/";
+    public static String VIDEO_DIR="D:/upload/";
+    private static String[] VIDEO_FILE_EXT=new String[] {"mp4"};
+
+    public static boolean isVideoFileAllowed(String fileName){
+        for(String ext : VIDEO_FILE_EXT)
+            if(fileName.equals(ext))
+                return true;
         return false;
     }
 

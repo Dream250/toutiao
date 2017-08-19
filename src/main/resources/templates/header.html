@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>头条资讯</title>
+    <title>资讯共享</title>
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta name="keywords" content="">
     <meta name="description" content="">
@@ -36,7 +36,7 @@
             </button>
 
             <a href="/" class="navbar-brand logo">
-                <h1>头条资讯</h1>
+                <h1>资讯共享</h1>
                 <h3>你关心的才是头条</h3>
             </a>
         </div>
@@ -44,13 +44,14 @@
         <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
 
             <ul class="nav navbar-nav navbar-right">
-
                 #if ($user)
-                <li class="js-share"><a href="javascript:void(0);">分享</a></li>
+                <li class="js-share"><a href="javascript:void(0);">分享资讯</a></li>
+                <li class="js-share"><a href="javascript:void(0);">分享视频</a></li>
                 <li class=""><a href="/msg/list">站内信</a></li>
                 <li class=""><a href="/user/$!{user.id}/">$!{user.name}</a></li>
+                <li class=""><a href="/logout/">安全退出</a></li>
                 #else
-                <li class="js-login"><a href="javascript:void(0);">登陆</a></li>
+                <li class="js-login"><a href="javascript:void(0);">登录</a></li>
                 #end
             </ul>
 

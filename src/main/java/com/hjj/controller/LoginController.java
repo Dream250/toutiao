@@ -37,6 +37,7 @@ public class LoginController {
         return "redirect:/";
     }
 
+
     @RequestMapping(path={"/login/"}, method={RequestMethod.GET,RequestMethod.POST})
     @ResponseBody
     public String login(Model model,
@@ -57,7 +58,7 @@ public class LoginController {
 
                 eventProducer.fireEvent(new
                         EventModel(EventType.LOGIN).setActorId((int) map.get("userId"))
-                        .setExt("username", username).setExt("to", "250"));
+                        .setExt("username", username).setExt("to", "saf"));
 
                 return Util.getJSONString(0, "成功");
             }else{
