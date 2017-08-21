@@ -45,7 +45,6 @@ public class LoginController {
                         @RequestParam("password") String password,
                         @RequestParam(value="rember",defaultValue = "0") int rememberme,
                         HttpServletResponse response){
-
         try{
             Map<String,Object> map=userService.login(username,password);
             if(map.containsKey("ticket")){
@@ -73,16 +72,17 @@ public class LoginController {
     //http://localhost:8080/reg/?username=123&password=123123
     @RequestMapping(path = {"/reg/"}, method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public String register(Model model, @RequestParam("username") String username,
-                        @RequestParam("password") String password,
-                        @RequestParam(value="rember", defaultValue = "0") int rememberme,
+    public String register(Model model,
+                           @RequestParam("username") String username,
+                           @RequestParam("password") String password,
+                           @RequestParam(value="rember", defaultValue = "0") int rememberme,
                         HttpServletResponse response
     ){
         try{
             Map<String,Object> map=userService.register(username,password);
             if(map.containsKey("ticket")){
                 Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
-                cookie.setPath("/");
+                cookie.setPath("/"); //路径全站有效
                 if (rememberme > 0) {
                     cookie.setMaxAge(3600*24*5);
                 }

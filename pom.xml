@@ -55,6 +55,13 @@
             <version>4.1.0</version>
         </dependency>-->
 
+        <!-- https://mvnrepository.com/artifact/org.webjars.npm/video.js -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>video.js</artifactId>
+            <version>6.2.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>sdk</artifactId>
