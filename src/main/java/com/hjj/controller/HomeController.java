@@ -1,5 +1,6 @@
 package com.hjj.controller;
 
+
 import com.hjj.model.EntityType;
 import com.hjj.model.HostHolder;
 import com.hjj.model.News;
@@ -11,10 +12,8 @@ import com.hjj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +34,45 @@ public class HomeController {
     @Autowired
     LikeService likeService;
 
-    @RequestMapping(path = {"/", "/index"},method = {RequestMethod.GET,RequestMethod.POST})
+    /*@RequestMapping(path = {"/", "/index"},method = {RequestMethod.GET,RequestMethod.POST})
     public String index(Model model,
         @RequestParam(value="pop",defaultValue = "0")int pop) {
-        model.addAttribute("vos", getNews(0, 0, 10));
+        List<ViewObject> list=getNews(0,0,15);
+        int recordtotal=list.size();
+        int pagesize=5;
+        int pagetotal=recordtotal/pagesize+recordtotal%pagesize;
+        model.addAttribute("vos", getNews(0, 0,15));
         model.addAttribute("pop",pop);
         return "home";
+    }*/
+
+    //  /pages?page=1
+    @RequestMapping(path={"/pages"})
+    public String page(@RequestParam(value="page") int page,
+                       @RequestParam(value="pop",defaultValue = "0")int pop,
+                       Model model){
+        List<ViewObject> list=getNews(0,0,15);
+        //总记录数
+        int recordtotal=list.size();
+        //每页的记录数
+        int pagesize=5;
+        //总共页数
+        int pagetotal=recordtotal/pagesize;
+        if(recordtotal%pagesize!=0)
+            pagetotal++;
+        model.addAttribute("pagetotal",pagetotal);
+        List<ViewObject> list2=new ArrayList<>();
+        for(int i=(page-1)*pagesize;i<page*pagesize&&i<recordtotal;i++)
+            list2.add(list.get(i));
+        model.addAttribute("vos", list2);
+        model.addAttribute("pop",pop);
+        model.addAttribute("cur_page",page);
+        return "home";
+    }
+
+    @RequestMapping(path={"/","/index"})
+    public String index(){
+        return "forward:/pages?page=1";
     }
 
     @RequestMapping(path = {"/user/{userId}/"}, method = {RequestMethod.GET, RequestMethod.POST})

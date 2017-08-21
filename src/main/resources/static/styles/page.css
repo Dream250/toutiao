@@ -1,0 +1,23 @@
+.page{
+    text-align: center;
+    font-size: 20px;
+    color:#00bc9b;
+}
+
+.page span {
+    border: 1px solid #00bc9b;
+    padding: 5px 7px;
+    color: #00bc9b;
+    text-align: center;
+    cursor: pointer;
+}
+
+.page span:hover,.page a:hover{
+    background-color: #00B091;
+    color:#ffffff;
+}
+
+.page a:active{
+    background-color: #00bc9b;
+    color: #ffffff;
+}

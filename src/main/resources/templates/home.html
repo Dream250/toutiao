@@ -1,5 +1,4 @@
 #parse("header.html")
-
     <div id="main">
         <div class="container" id="daily">
             <div class="jscroll-inner">
@@ -64,12 +63,32 @@
 
     </div>
 
+<div class="page">
+    #set($a=$cur_page)
+    #if($a==1)
+    <span>上一页</span>
+    #else
+    <!--cur_page - 1 中间要加空格-->
+    #set($a= $a - 1)
+    <span><a href="/pages?page=$a">上一页</a></span>
+    #end
 
+    #foreach($i in [1..$pagetotal])
+        <span><a href="/pages?page=$i">$i</a></span>
+    #end
+
+    #set($a=$cur_page)
+    #if($pagetotal == $a)
+        <span>下一页</span>
+    #else
+        #set($a=$a + 1)
+        <span><a href="/pages?page=$a">下一页</a></span>
+    #end
+</div>
 #if ($pop)
 <script>
-window.loginpop = $!{pop};
+    window.loginpop = $pop;
 </script>
 <script type="text/javascript" src="/scripts/main/site/home.js"></script>
 #end
-
 #parse("footer.html")
