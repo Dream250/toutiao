@@ -96,6 +96,7 @@ public class NewsController {
         return "redirect:/news/"+String.valueOf(newsId);
     }
 
+    /*本地测试
     @RequestMapping(path = {"/image"}, method = {RequestMethod.GET})
     @ResponseBody
     public void getImage(@RequestParam("name") String imageName,
@@ -107,7 +108,7 @@ public class NewsController {
         } catch (Exception e) {
             logger.error("读取图片错误" + imageName + e.getMessage());
         }
-    }
+    }*/
 
 
     @RequestMapping(path={"/uploadImage/"},method = {RequestMethod.POST})
@@ -150,7 +151,7 @@ public class NewsController {
         }
     }
 
-    @RequestMapping(path={"/test/"},method = {RequestMethod.POST})
+   /* @RequestMapping(path={"/uploadV/"},method = {RequestMethod.POST})
     @ResponseBody
     public String uploadVideo(@RequestParam("file") MultipartFile file){
         try{
@@ -169,6 +170,6 @@ public class NewsController {
     public String h(){
         return "home2";
     }
-
+*/
 
 }

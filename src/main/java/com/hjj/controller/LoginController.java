@@ -55,9 +55,9 @@ public class LoginController {
                 }
                 response.addCookie(cookie);
 
-                eventProducer.fireEvent(new
+               /* eventProducer.fireEvent(new
                         EventModel(EventType.LOGIN).setActorId((int) map.get("userId"))
-                        .setExt("username", username).setExt("to", "saf"));
+                        .setExt("username", username).setExt("to", "saf"));*/
 
                 return Util.getJSONString(0, "成功");
             }else{

@@ -35,35 +35,35 @@
     }
 
     function fInitialize(oConf) {
-        var that = this;
-        that.rawConfig = oConf;
-        that.domId = 'jsCpn' + (Component._cIndex++);
-        that._setCustomEvent();
-        Component._domQueue.push(that);
-        oConf.renderTo && that.render();
-    }
-
-    function fRender() {
-        var that = this;
-        var oConf = that.rawConfig;
-        var oRenderTo = $(oConf.renderTo);
-        var sRenderBy = oConf.renderBy || 'append';
-        var oEl = that.getEl();
-        oRenderTo[sRenderBy](oEl);
-        that._setDomEvent();
-        that.emit('render');
-    }
-
-    function fGetEl() {
-        var that = this;
-        if (that.$el) {
-            return that.$el;
+            var that = this;
+            that.rawConfig = oConf;
+            that.domId = 'jsCpn' + (Component._cIndex++);
+            that._setCustomEvent();
+            Component._domQueue.push(that);
+            oConf.renderTo && that.render();
         }
-        var oEl = $('#' + that.domId);
-        if (oEl.get(0)) {
-            that.$el = oEl;
-            return oEl;
+
+        function fRender() {
+            var that = this;
+            var oConf = that.rawConfig;
+            var oRenderTo = $(oConf.renderTo);
+            var sRenderBy = oConf.renderBy || 'append';
+            var oEl = that.getEl();
+            oRenderTo[sRenderBy](oEl);
+            that._setDomEvent();
+            that.emit('render');
         }
+
+        function fGetEl() {
+            var that = this;
+            if (that.$el) {
+                return that.$el;
+            }
+            var oEl = $('#' + that.domId);
+            if (oEl.get(0)) {
+                that.$el = oEl;
+                return oEl;
+            }
 
         var sHtml = that.html();
         that.$el = $(sHtml);

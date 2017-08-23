@@ -22,6 +22,13 @@
     <script type="text/javascript" src="/scripts/main/component/popupUpload.js"></script>
     <script type="text/javascript" src="/scripts/main/util/action.js"></script>
 
+
+    <script type="text/javascript" src="/scripts/main/component/popupUpload2.js"></script>
+    <!--Video.js-->
+    <link rel="stylesheet" type="text/css" href="/styles/video-js.css">
+    <link rel="stylesheet" type="text/css" href="/styles/video-js.min.css">
+    <script type="text/javascript" src="/scripts/video/video.js"></script>
+    <script type="text/javascript" src="/scripts/video/video.min.js"></script>
 </head>
 <body class="welcome_index">
 
@@ -37,7 +44,7 @@
 
             <a href="/" class="navbar-brand logo">
                 <h1>资讯共享</h1>
-                <h3>你关心的才是头条</h3>
+                <h3>分享产生价值</h3>
             </a>
         </div>
 
@@ -45,8 +52,16 @@
 
             <ul class="nav navbar-nav navbar-right">
                 #if ($user)
-                <li class="js-share"><a href="javascript:void(0);">分享资讯</a></li>
-                <li class="js-share"><a href="javascript:void(0);">分享视频</a></li>
+                    #if($newstype == 1)
+                        <li class="js-share"><a href="javascript:void(0);">分享资讯</a></li>
+                    #else
+                        <li><a href="/index">资讯</a></li>
+                    #end
+                    #if($newstype == 2)
+                        <li class="js-share"><a href="javascript:void(0);">分享视频</a></li>
+                    #else
+                        <li><a href="/videoindex">视频</a></li>
+                    #end
                 <li class=""><a href="/msg/list">站内信</a></li>
                 <li class=""><a href="/user/$!{user.id}/">$!{user.name}</a></li>
                 <li class=""><a href="/logout/">安全退出</a></li>
@@ -54,7 +69,6 @@
                 <li class="js-login"><a href="javascript:void(0);">登录</a></li>
                 #end
             </ul>
-
         </nav>
     </div>
 </header>

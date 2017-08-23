@@ -37,7 +37,7 @@ public class Util {
     public static String QINIU_DOMAIN2="http://ouvvok8ir.bkt.clouddn.com";
    // public static String DOMAIN="http://127.0.0.1:8080/";
     public static String VIDEO_DIR="D:/upload/";
-    private static String[] VIDEO_FILE_EXT=new String[] {"mp4"};
+    private static String[] VIDEO_FILE_EXT=new String[] {"mp4","rm","rmvb","avi"};
 
     public static boolean isVideoFileAllowed(String fileName){
         for(String ext : VIDEO_FILE_EXT)

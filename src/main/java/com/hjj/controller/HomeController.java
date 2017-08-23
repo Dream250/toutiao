@@ -1,10 +1,7 @@
 package com.hjj.controller;
 
 
-import com.hjj.model.EntityType;
-import com.hjj.model.HostHolder;
-import com.hjj.model.News;
-import com.hjj.model.ViewObject;
+import com.hjj.model.*;
 import com.hjj.service.LikeService;
 import com.hjj.service.NewsService;
 import com.hjj.service.ToutiaoService;
@@ -67,6 +64,8 @@ public class HomeController {
         model.addAttribute("vos", list2);
         model.addAttribute("pop",pop);
         model.addAttribute("cur_page",page);
+
+        model.addAttribute("newstype", NewsType.TYPE_NEWS);
         return "home";
     }
 
@@ -76,7 +75,8 @@ public class HomeController {
     }
 
     @RequestMapping(path = {"/user/{userId}/"}, method = {RequestMethod.GET, RequestMethod.POST})
-    public String userIndex(@PathVariable("userId") int userId, Model model,
+    public String userIndex(@PathVariable("userId") int userId,
+                            Model model,
                             @RequestParam(value = "pop",defaultValue = "0") int pop) {
         model.addAttribute("vos", getNews(userId, 0, 10));
         model.addAttribute("pop",pop);

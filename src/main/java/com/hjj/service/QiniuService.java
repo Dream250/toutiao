@@ -107,7 +107,7 @@ public class QiniuService {
             Response response=uploadManager.put(file.getBytes(),fileName,upToken);
             if(response.isJson()&&response.isOK()){
                 String key= JSONObject.parseObject(response.bodyString()).get("key").toString();
-                return Util.QINIU_DOMAIN+key;
+                return Util.QINIU_DOMAIN2+key;
             }
         }catch (Exception e){
             logger.error(e.getMessage());

@@ -1,0 +1,29 @@
+<!--<!DOCTYPE html>
+<html>
+<head>
+    <title>Video.js | HTML5 Video Player</title>
+    <link rel="stylesheet" type="text/css" href="/styles/video-js.css">
+    <link rel="stylesheet" type="text/css" href="/styles/video-js.min.css">
+    <script type="text/javascript" src="/scripts/video/video.js"></script>
+    <script type="text/javascript" src="/scripts/video/video.min.js"></script>
+</head>-->
+#parse("header.html")
+
+<body>
+<center>
+<div style="width:640px;hight:450px;margin:50px auto">
+    <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none"
+           width="640" height="264"
+           poster="http://video-js.zencoder.com/oceans-clip.png"
+           data-setup="{}">
+        <source src="http://ouvvok8ir.bkt.clouddn.com/4bfcf8fcef6b4f28bbf7fe561a1865ed.mp4" type='video/mp4' />
+        <source src="http://ot5i0ccl4.bkt.clouddn.com/4bfcf8fcef6b4f28bbf7fe561a1865ed.mp4" type='video/webm' />
+        <source src="http://ouvvok8ir.bkt.clouddn.com/8f782e52fe8e4786baf4e35314ff8e4d.mp4" type='video/ogg' />
+        <!--<track kind="captions" src="stycaptions.vtt" srclang="en" label="English" />-->
+        <track kind="captions" src="/styles/example-captions.vtt" srclang="en" label="English"/>
+        <track kind="subtitles" src="/styles/example-captions.vtt" srclang="en" label="English"/>
+    </video>
+</div>
+</center>
+</body>
+#parse("footer.html")

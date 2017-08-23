@@ -20,14 +20,14 @@
                         <div class="post">
                             <div class="votebar">
                                 #if ($vo.like > 0)
-                                <button class="click-like up pressed" data-id="$!{vo.news.id}" title="赞同"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
+                                <button class="click-like up pressed" data-id="$!{vo.news.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
                                 #else
-                                <button class="click-like up" data-id="$!{vo.news.id}" title="赞同"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
+                                <button class="click-like up" data-id="$!{vo.news.id}" title="踩"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
                                 #end
                                 #if($vo.like < 0)
-                                <button class="click-dislike down pressed" data-id="$!{vo.news.id}" title="反对"><i class="vote-arrow"></i></button>
+                                <button class="click-dislike down pressed" data-id="$!{vo.news.id}" title="顶"><i class="vote-arrow"></i></button>
                                 #else
-                                <button class="click-dislike down" data-id="$!{vo.news.id}" title="反对"><i class="vote-arrow"></i></button>
+                                <button class="click-dislike down" data-id="$!{vo.news.id}" title="踩"><i class="vote-arrow"></i></button>
                                 #end
                             </div>
                             <div class="content">
@@ -87,7 +87,7 @@
 </div>
 #if ($pop)
 <script>
-    window.loginpop = $pop;
+    window.loginpop = $!{pop};
 </script>
 <script type="text/javascript" src="/scripts/main/site/home.js"></script>
 #end

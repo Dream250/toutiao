@@ -10,7 +10,7 @@
                 '<div class="input-section">',
                     '<div class="form-group">',
                         '<label class="control-label">用户名</label>',
-                        '<div class="control-group js-email"><input type="email" placeholder="请输入用户"></div>',
+                        '<div class="control-group js-email"><input type="email" placeholder="请输入用户名"></div>',
                     '</div>',
                     '<div class="form-group">',
                         '<label class="control-label">密码</label>',
@@ -18,7 +18,7 @@
                     '</div>',
                     '<div class="form-group about-pwd">',
                         '<div class="keep-pwd">',
-                            '<label><input type="checkbox" class="js-rember"> 记住登录</label>',
+                            '<label><input type="checkbox"  class="js-rember"> 记住登录</label>',
                         '</div>',
                     '</div>',
                     '<div class="form-group">',
@@ -28,7 +28,8 @@
                         '</div>',
                     '</div>',
                 '</div>',
-            '</div>'].join(''),
+            '</div>'
+        ].join(''),
         listeners: [{
             name: 'render',
             type: 'custom',
@@ -37,6 +38,8 @@
                 var oEl = that.getEl();
                 that.emailIpt = oEl.find('div.js-email');
                 that.pwdIpt = oEl.find('div.js-pwd');
+                /* if(loginpop==1) a="checked";
+                else a="unchecked";*/
                 that.initCpn();
             }
         }, {
@@ -150,7 +153,9 @@
         } else {
             oEmailIpt.val($.trim(oData.email));
             oPwdIpt.val($.trim(oData.pwd));
+            //oRemberChk.prop('checked', oData.rember);
             oRemberChk.prop('checked', !!oData.rember);
+            //oRemberChk.prop('checked', true);
         }
     }
 
