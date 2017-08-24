@@ -31,5 +31,4 @@ public class MessageService {
         return messageDAO.getConversationUnReadCount(userId, conversationId);
     }
 
-
 }

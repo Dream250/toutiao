@@ -1,8 +1,7 @@
 (function (window, undefined) {
     var PopupLogin = Base.getClass('main.component.PopupLogin');
     var PopupUpload = Base.getClass('main.component.PopupUpload2');
-    var ActionUtil = Base.getClass('main.util.Action');
-
+    var ActionUtil = Base.getClass('main.util.Action2');
 
     Base.ready({
         initialize: fInitialize,
@@ -61,7 +60,7 @@
         }
         that.actioning = true;
         ActionUtil.like({
-            newsId: sId,
+            videoId: sId,
             call: function (oResult) {
                 oEl.find('span.count').html(oResult.msg);
                 oEl.addClass('pressed');
@@ -86,7 +85,7 @@
         }
         that.actioning = true;
         ActionUtil.dislike({
-            newsId: sId,
+            videoId: sId,
             call: function (oResult) {
                 oEl.addClass('pressed');
                 var oLikeBtn = oEl.parent().find('.click-like');

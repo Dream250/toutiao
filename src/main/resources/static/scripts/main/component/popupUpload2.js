@@ -45,7 +45,7 @@ var oPopupUpload = new PopupUpload({
                         return !sMsg;
                     },
                     call: function (oResult) {
-                        var sUrl = $.trim(oResult.msg);
+                        var sUrl = $.trim(oResult.msg)+"?vframe/jpg/offset/2/w/480/h/360";
                         if (oResult.code !== 0) {
                             return alert('出现错误，请重试');
                         }
@@ -75,9 +75,9 @@ var oPopupUpload = new PopupUpload({
                 }
                 that.requesting = true;
                 $.ajax({
-                    url: '/user/addNews/',
+                    url: '/user/addVideo/',
                     method: 'post',
-                    data: {image: that.image, title: sTitle, link: sLink},
+                    data: {video: that.image, title: sTitle, link: sLink},
                     dataType: 'json'
                 }).done(function (oResult) {
                     that.emit('done');

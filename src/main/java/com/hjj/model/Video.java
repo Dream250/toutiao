@@ -9,7 +9,7 @@ public class Video {
     private int id;
     private String title;
     private String link;
-    private String image;
+    private String video;
     private int likeCount;
     private int commentCount;
     private Date createdDate;
@@ -32,12 +32,7 @@ public class Video {
     public void setLink(String link) {
         this.link = link;
     }
-    public String getImage() {
-        return image;
-    }
-    public void setImage(String image) {
-        this.image = image;
-    }
+
     public int getLikeCount() {
         return likeCount;
     }
@@ -61,5 +56,11 @@ public class Video {
     }
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+    public String getVideo() {
+        return video;
+    }
+    public void setVideo(String video) {
+        this.video = video;
     }
 }

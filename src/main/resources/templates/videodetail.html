@@ -8,22 +8,69 @@
     <script type="text/javascript" src="/scripts/video/video.min.js"></script>
 </head>-->
 #parse("header.html")
+<div id="main">
+    <div class="container">
 
-<body>
-<center>
 <div style="width:640px;hight:450px;margin:50px auto">
     <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none"
            width="640" height="264"
            poster="http://video-js.zencoder.com/oceans-clip.png"
            data-setup="{}">
-        <source src="http://ouvvok8ir.bkt.clouddn.com/4bfcf8fcef6b4f28bbf7fe561a1865ed.mp4" type='video/mp4' />
+        <source src="$!{url}" type='video/mp4' />
+        <source src="$!{url}" type='video/webm' />
+        <source src="$!{url}" type='video/ogg' />
+        <!--<source src="http://ouvvok8ir.bkt.clouddn.com/4bfcf8fcef6b4f28bbf7fe561a1865ed.mp4" type='video/mp4' />
         <source src="http://ot5i0ccl4.bkt.clouddn.com/4bfcf8fcef6b4f28bbf7fe561a1865ed.mp4" type='video/webm' />
-        <source src="http://ouvvok8ir.bkt.clouddn.com/8f782e52fe8e4786baf4e35314ff8e4d.mp4" type='video/ogg' />
+        <source src="http://ouvvok8ir.bkt.clouddn.com/8f782e52fe8e4786baf4e35314ff8e4d.mp4" type='video/ogg' />-->
         <!--<track kind="captions" src="stycaptions.vtt" srclang="en" label="English" />-->
         <track kind="captions" src="/styles/example-captions.vtt" srclang="en" label="English"/>
         <track kind="subtitles" src="/styles/example-captions.vtt" srclang="en" label="English"/>
     </video>
 </div>
-</center>
-</body>
+
+
+    <div class="post-comment-form">
+        #if($user)
+        <span>评论 ($!{video.commentCount})</span>
+        <form method="post" action="/addComment2">
+            <input name="videoId" type="hidden" value="$!{video.id}">
+
+            <div class="form-group text required comment_content">
+                <label class="text required sr-only">
+                    <abbr title="required">*</abbr> 评论</label>
+                <textarea rows="5" class="text required comment-content form-control" name="content" id="content" placeholder="发表你的感受吧~~"></textarea>
+            </div>
+            <div class="text-right">
+                <input type="submit" name="commit" value="提 交" class="btn btn-default btn-info">
+            </div>
+        </form>
+        #else
+        <div class="login-actions">
+            <a class="btn btn-success" href="/?pop=1">登录后评论</a>
+        </div>
+        #end
+    </div>
+
+    <div id="comments" class="comments">
+        #foreach($commentvo in $comments)
+        <div class="media">
+            <a class="media-left" href="/user/$!{commentvo.user.id}">
+                <img src="$!{commentvo.user.headUrl}">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading">
+                    <small class="date">$date.format('yyyy-MM-dd HH:mm:ss', $!{commentvo.comment.createdDate})
+                    </small>
+                </h4>
+                <div>$!{commentvo.comment.content}</div>
+            </div>
+        </div>
+        #end
+    </div>
+
+    </div>
+</div>
+
+   <!-- <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
+    </div>-->
 #parse("footer.html")

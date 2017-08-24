@@ -27,6 +27,7 @@ public class NewsService {
     ){
         return newsDAO.selectByUserIdAndOffset(userId,offset,limit);
     }*/
+    /*本地保存测试
     public String saveImage(MultipartFile file) throws IOException {
         int index=file.getOriginalFilename().lastIndexOf(".");
         if(index<0) return null;
@@ -39,6 +40,7 @@ public class NewsService {
         return Util.DOMAIN + "image?name=" + fileName;
     }
 
+    //本地保存测试
     public String saveVideo(MultipartFile file) throws IOException {
         String name=file.getOriginalFilename();
         int index=name.lastIndexOf(".");
@@ -50,7 +52,7 @@ public class NewsService {
         Files.copy(file.getInputStream(),new File(Util.VIDEO_DIR+fileName).toPath(),
                 StandardCopyOption.REPLACE_EXISTING);
         return Util.DOMAIN+"video?name="+fileName;
-    }
+    }*/
 
     public  void addNews(News news){
          newsDAO.addNews(news);

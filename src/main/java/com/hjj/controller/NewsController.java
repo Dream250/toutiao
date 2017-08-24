@@ -44,7 +44,6 @@ public class NewsController {
         try {
             News news = newsService.selectById(newsId);
 
-
             if (null != news) {
                 int localUserId = hostHolder.getUser() !=null?hostHolder.getUser().getId():0;
                 if(localUserId!=0){
@@ -52,7 +51,6 @@ public class NewsController {
                 }else{
                     model.addAttribute("like",0);
                 }
-
 
                 List<Comment> comments = commentService.getCommentsByEntity(news.getId(), EntityType.ENTITY_NEWS);
                 List<ViewObject> commentVOs = new ArrayList<ViewObject>();

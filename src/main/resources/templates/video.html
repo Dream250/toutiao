@@ -5,14 +5,14 @@
             <div class="daily">
                 #set($cur_date = '')
                 #foreach($vo in $vos)
-                #if ($cur_date != $date.format('yyyy-MM-dd', $vo.news.createdDate))
+                #if ($cur_date != $date.format('yyyy-MM-dd', $vo.video.createdDate))
                 #if ($foreach.index > 0)
             </div> ## 上一个要收尾
             #end
-            #set($cur_date = $date.format('yyyy-MM-dd', $vo.news.createdDate))
+            #set($cur_date = $date.format('yyyy-MM-dd', $vo.video.createdDate))
             <h3 class="date">
                 <i class="fa icon-calendar"></i>
-                <span>头条资讯 &nbsp; $date.format('yyyy-MM-dd', $vo.news.createdDate)</span>
+                <span>头条资讯 &nbsp; $date.format('yyyy-MM-dd', $vo.video.createdDate)</span>
             </h3>
 
             <div class="posts">
@@ -20,28 +20,28 @@
                 <div class="post">
                     <div class="votebar">
                         #if ($vo.like > 0)
-                        <button class="click-like up pressed" data-id="$!{vo.news.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
+                        <button class="click-like up pressed" data-id="$!{vo.video.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{vo.video.likeCount}</span></button>
                         #else
-                        <button class="click-like up" data-id="$!{vo.news.id}" title="踩"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
+                        <button class="click-like up" data-id="$!{vo.video.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{vo.video.likeCount}</span></button>
                         #end
                         #if($vo.like < 0)
-                        <button class="click-dislike down pressed" data-id="$!{vo.news.id}" title="顶"><i class="vote-arrow"></i></button>
+                        <button class="click-dislike down pressed" data-id="$!{vo.video.id}" title="踩"><i class="vote-arrow"></i></button>
                         #else
-                        <button class="click-dislike down" data-id="$!{vo.news.id}" title="踩"><i class="vote-arrow"></i></button>
+                        <button class="click-dislike down" data-id="$!{vo.video.id}" title="踩"><i class="vote-arrow"></i></button>
                         #end
                     </div>
-                    <div class="content">
+                    <div class="content" onClick="window.location.href='/video/$!{vo.video.id}'">
                         <div >
-                            <img class="content-img" src="$!{vo.news.image}" alt="">
+                            <img class="content-img" src="$!{vo.video.video}" alt="">
                         </div>
                         <div class="content-main">
                             <h3 class="title">
-                                <a target="_blank" rel="external nofollow" href="/news/$!{vo.news.id}">$!{vo.news.title}</a>
+                                <a target="_blank" rel="external nofollow">$!{vo.video.title}</a>
                             </h3>
                             <div class="meta">
-                                $!{vo.news.link}
+                                $!{vo.video.link}
                                         <span>
-                                            <i class="fa icon-comment"></i> $!{vo.news.commentCount}
+                                            <i class="fa icon-comment"></i> $!{vo.video.commentCount}
                                         </span>
                             </div>
                         </div>
@@ -70,19 +70,21 @@
     #else
     <!--cur_page - 1 中间要加空格-->
     #set($a= $a - 1)
-    <span><a href="/pages?page=$a">上一页</a></span>
+    <span><a href="/pages/type2?page=$a">上一页</a></span>
     #end
 
-    #foreach($i in [1..$pagetotal])
-    <span><a href="/pages?page=$i">$i</a></span>
+    #if($pagetotal > 0)
+        #foreach($i in [1..$pagetotal])
+        <span><a href="/pages/type2?page=$i">$i</a></span>
+        #end
     #end
 
     #set($a=$cur_page)
-    #if($pagetotal == $a)
+    #if($pagetotal == $a ||$pagetotal == 0)
     <span>下一页</span>
     #else
-    #set($a=$a + 1)
-    <span><a href="/pages?page=$a">下一页</a></span>
+        #set($a=$a + 1)
+        <span><a href="/pages/type2?page=$a">下一页</a></span>
     #end
 </div>
 

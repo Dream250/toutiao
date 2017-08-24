@@ -43,8 +43,8 @@ public class HomeController {
         return "home";
     }*/
 
-    //  /pages?page=1
-    @RequestMapping(path={"/pages"})
+    //  /pages/type1?page=1
+    @RequestMapping(path={"/pages/type1"})
     public String page(@RequestParam(value="page") int page,
                        @RequestParam(value="pop",defaultValue = "0")int pop,
                        Model model){
@@ -52,7 +52,7 @@ public class HomeController {
         //总记录数
         int recordtotal=list.size();
         //每页的记录数
-        int pagesize=5;
+        int pagesize=7;
         //总共页数
         int pagetotal=recordtotal/pagesize;
         if(recordtotal%pagesize!=0)
@@ -71,7 +71,7 @@ public class HomeController {
 
     @RequestMapping(path={"/","/index"})
     public String index(){
-        return "forward:/pages?page=1";
+        return "forward:/pages/type1?page=1";
     }
 
     @RequestMapping(path = {"/user/{userId}/"}, method = {RequestMethod.GET, RequestMethod.POST})

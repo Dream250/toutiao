@@ -2,7 +2,6 @@ package com.hjj.dao;
 
 import com.hjj.model.News;
 import org.apache.ibatis.annotations.*;
-
 import java.util.List;
 
 /**

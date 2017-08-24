@@ -108,6 +108,7 @@ public class QiniuService {
             if(response.isJson()&&response.isOK()){
                 String key= JSONObject.parseObject(response.bodyString()).get("key").toString();
                 return Util.QINIU_DOMAIN2+key;
+                //return Util.QINIU_DOMAIN2+key+"?vframe/jpg/offset/2/w/480/h/360"; //网络视频封面
             }
         }catch (Exception e){
             logger.error(e.getMessage());

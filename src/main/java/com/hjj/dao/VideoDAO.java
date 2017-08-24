@@ -11,16 +11,16 @@ import java.util.List;
 @Mapper
 public interface VideoDAO {
     String TABLE_NAME="video";
-    String INSERT_FIELDS="title,link,image,like_count,comment_count,created_date," +
+    String INSERT_FIELDS="title,link,video,like_count,comment_count,created_date," +
             "user_id";
     String SELECT_FIELDS="id,"+INSERT_FIELDS;
 
     @Insert({"insert into",TABLE_NAME,"(",INSERT_FIELDS,") values (" +
-            "#{title},#{link},#{image},#{likeCount},#{commentCount},#{createdDate},#{userId})"})
-    void addNews(Video video);
+            "#{title},#{link},#{video},#{likeCount},#{commentCount},#{createdDate},#{userId})"})
+    void addVideo(Video video);
 
-    @Select({"select ",SELECT_FIELDS,"from",TABLE_NAME,"where id=#{id}"})
-    Video selectById(int id);
+   /* @Select({"select ",SELECT_FIELDS,"from",TABLE_NAME,"where id=#{id}"})
+    Video selectById(int id);*/
 
 
     List<Video> selectByUserIdAndOffset(@Param("userId") int userId, @Param("offset") int offset,

@@ -22,21 +22,21 @@
                                 #if ($vo.like > 0)
                                 <button class="click-like up pressed" data-id="$!{vo.news.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
                                 #else
-                                <button class="click-like up" data-id="$!{vo.news.id}" title="踩"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
+                                <button class="click-like up" data-id="$!{vo.news.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{vo.news.likeCount}</span></button>
                                 #end
                                 #if($vo.like < 0)
-                                <button class="click-dislike down pressed" data-id="$!{vo.news.id}" title="顶"><i class="vote-arrow"></i></button>
+                                <button class="click-dislike down pressed" data-id="$!{vo.news.id}" title="踩"><i class="vote-arrow"></i></button>
                                 #else
                                 <button class="click-dislike down" data-id="$!{vo.news.id}" title="踩"><i class="vote-arrow"></i></button>
                                 #end
                             </div>
-                            <div class="content">
+                            <div class="content" onClick="window.location.href='/news/$!{vo.news.id}'">
                                 <div >
                                     <img class="content-img" src="$!{vo.news.image}" alt="">
                                 </div>
                                 <div class="content-main">
                                     <h3 class="title">
-                                        <a target="_blank" rel="external nofollow" href="/news/$!{vo.news.id}">$!{vo.news.title}</a>
+                                        <a target="_blank" rel="external nofollow" >$!{vo.news.title}</a>
                                     </h3>
                                     <div class="meta">
                                         $!{vo.news.link}
@@ -70,19 +70,20 @@
     #else
     <!--cur_page - 1 中间要加空格-->
     #set($a= $a - 1)
-    <span><a href="/pages?page=$a">上一页</a></span>
+    <span><a href="/pages/type1?page=$a">上一页</a></span>
     #end
 
-    #foreach($i in [1..$pagetotal])
-        <span><a href="/pages?page=$i">$i</a></span>
+    #if($pagetotal > 0)
+        #foreach($i in [1..$pagetotal])
+            <span><a href="/pages/type1?page=$i">$i</a></span>
+        #end
     #end
-
     #set($a=$cur_page)
     #if($pagetotal == $a)
         <span>下一页</span>
     #else
         #set($a=$a + 1)
-        <span><a href="/pages?page=$a">下一页</a></span>
+        <span><a href="/pages/type1?page=$a">下一页</a></span>
     #end
 </div>
 #if ($pop)

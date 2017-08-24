@@ -8,5 +8,5 @@ public class EntityType {
     评论中心
      */
     public static int ENTITY_NEWS=1;
-    public static int ENTITY_COMMENT=2;
+    public static int ENTITY_VEDEO=2;
 }
