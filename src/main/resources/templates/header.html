@@ -18,6 +18,7 @@
     <script type="text/javascript" src="/scripts/main/component/component.js"></script>
     <script type="text/javascript" src="/scripts/main/component/popup.js"></script>
     <script type="text/javascript" src="/scripts/main/component/popupLogin.js"></script>
+    <script type="text/javascript" src="/scripts/main/component/popupregister.js"></script>
     <script type="text/javascript" src="/scripts/main/component/upload.js"></script>
     <script type="text/javascript" src="/scripts/main/component/popupUpload.js"></script>
     <script type="text/javascript" src="/scripts/main/util/action.js"></script>
@@ -66,7 +67,10 @@
                 <li class=""><a href="/user/$!{user.id}/">$!{user.name}</a></li>
                 <li class=""><a href="/logout/">安全退出</a></li>
                 #else
+                <li><a href="/index">资讯</a></li>
+                <li><a href="/videoindex">视频</a></li>
                 <li class="js-login"><a href="javascript:void(0);">登录</a></li>
+                <li class="js-register"><a href="javascript:void(0);">注册</a></li>
                 #end
             </ul>
         </nav>

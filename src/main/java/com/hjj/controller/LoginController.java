@@ -75,11 +75,12 @@ public class LoginController {
     public String register(Model model,
                            @RequestParam("username") String username,
                            @RequestParam("password") String password,
+                           @RequestParam("email") String email,
                            @RequestParam(value="rember", defaultValue = "0") int rememberme,
                         HttpServletResponse response
     ){
         try{
-            Map<String,Object> map=userService.register(username,password);
+            Map<String,Object> map=userService.register(username,password,email);
             if(map.containsKey("ticket")){
                 Cookie cookie=new Cookie("ticket",map.get("ticket").toString());
                 cookie.setPath("/"); //路径全站有效

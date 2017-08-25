@@ -3,6 +3,10 @@
     <div class="container" id="daily">
         <div class="jscroll-inner">
             <div class="daily">
+                <h2 class="date">
+                    <i class="fa icon-calendar"></i>
+                    <span>视&nbsp;频&nbsp;分&nbsp;享</span>
+                </h2>
                 #set($cur_date = '')
                 #foreach($vo in $vos)
                 #if ($cur_date != $date.format('yyyy-MM-dd', $vo.video.createdDate))
@@ -11,8 +15,9 @@
             #end
             #set($cur_date = $date.format('yyyy-MM-dd', $vo.video.createdDate))
             <h3 class="date">
-                <i class="fa icon-calendar"></i>
-                <span>头条资讯 &nbsp; $date.format('yyyy-MM-dd', $vo.video.createdDate)</span>
+                <!--<i class="fa icon-calendar"></i>
+                <span>视频分享 &nbsp; $date.format('yyyy-MM-dd', $vo.video.createdDate)</span>-->
+                <span>$date.format('yyyy-MM-dd', $vo.video.createdDate)</span>
             </h3>
 
             <div class="posts">

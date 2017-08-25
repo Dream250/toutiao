@@ -1,5 +1,6 @@
 (function (window, undefined) {
     var PopupLogin = Base.getClass('main.component.PopupLogin');
+    var PopupReigster = Base.getClass('main.component.PopupReigster');
     var PopupUpload = Base.getClass('main.component.PopupUpload2');
     var ActionUtil = Base.getClass('main.util.Action2');
 
@@ -7,7 +8,8 @@
         initialize: fInitialize,
         binds: {
             //.表示class #表示id
-           // 'click .js-login': fClickLogin,
+            'click .js-login': fClickLogin,
+            'click .js-register': fClickRegister,
             'click .js-share': fClickShare
         },
         events: {
@@ -21,6 +23,23 @@
             fClickLogin();
         }
     }
+
+    function fClickRegister(){
+        var that = this;
+        PopupReigster.show({
+            listeners: {
+                login: function () {
+                    //alert('login');
+                    window.location.reload();
+                },
+                register: function () {
+                    //alert('reg');
+                    window.location.reload();
+                }
+            }
+        });
+    }
+
     function fClickShare() {
         var that = this;
         PopupUpload.show({
@@ -33,17 +52,12 @@
         });
     }
 
-
     function fClickLogin() {
         var that = this;
         PopupLogin.show({
             listeners: {
                 login: function () {
                     //alert('login');
-                    window.location.reload();
-                },
-                register: function () {
-                    //alert('reg');
                     window.location.reload();
                 }
             }

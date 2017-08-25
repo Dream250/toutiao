@@ -25,7 +25,7 @@ public class UserService {
     private LoginTicketDAO loginTicketDAO;
 
     //注册
-    public Map<String,Object> register(String username,String password){
+    public Map<String,Object> register(String username,String password,String email){
         Map<String,Object> map=new HashMap<String,Object>();
         //判断是否为空（注意：前后端都需要验证）
         if(StringUtils.isBlank(username)){
@@ -34,6 +34,10 @@ public class UserService {
         }
         if(StringUtils.isBlank(password)){
             map.put("msgpwd","密码不能为空！");
+            return map;
+        }
+        if(StringUtils.isBlank(email)){
+            map.put("msgemail","密码不能为空！");
             return map;
         }
         User user=userDAO.selectByName(username);
@@ -52,6 +56,8 @@ public class UserService {
 
         //密码加密
         user.setPassword(Util.MD5(password+user.getSalt()));
+
+        user.setEmail(email);
         userDAO.addUser(user);
 
         //注册后登录，发放ticket值
