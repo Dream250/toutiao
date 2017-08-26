@@ -10,16 +10,16 @@
                 '<div class="input-section">',
                     '<div class="form-group">',
                         '<label class="control-label">用户名</label>',
-                        '<div class="control-group js-username"><input type="text" placeholder="请输入用户名"></div>',
+                        '<div class="control-group js-username2"><input type="text" placeholder="请输入用户名"></div>',
                     '</div>',
                     '<div class="form-group">',
                         '<label class="control-label">密码</label>',
-                        '<div class="control-group js-pwd"><input type="password" placeholder="请输入密码"></div>',
+                        '<div class="control-group js-pwd2"><input type="password" placeholder="请输入密码"></div>',
                     '</div>',
 
                 '<div class="form-group">',
                     '<label class="control-label">邮箱</label>',
-                    '<div class="control-group js-email"><input ty`pe="email" placeholder="请输入邮箱"></div>',
+                    '<div class="control-group js-email2"><input type="email" placeholder="请输入邮箱"></div>',
                 '</div>',
                    /* '<div class="form-group about-pwd">',
                         '<div class="keep-pwd">',
@@ -36,17 +36,17 @@
             '</div>'
         ].join(''),
         listeners: [{
-                name: 'render',
+                    name: 'render',
                     type: 'custom',
                     handler: function () {
-                    var that = this;
-                    var oEl = that.getEl();
-                    that.usernameIpt=oEl.find('div.js-username');
-                    that.pwdIpt = oEl.find('div.js-pwd');
-                    that.emailIpt = oEl.find('div.js-email');
-                    that.initCpn();
-                }
-            }, {
+                        var that = this;
+                        var oEl = that.getEl();
+                        that.usernameIpt=oEl.find('div.js-username2');
+                        that.pwdIpt = oEl.find('div.js-pwd2');
+                        that.emailIpt = oEl.find('div.js-email2');
+                        that.initCpn();
+                    }
+            }, /*{
             name: 'click a.js-login',
             handler: function (oEvent) {
                 oEvent.preventDefault();
@@ -77,7 +77,7 @@
                     alert('出现错误，请重试');
                 });
             }
-        }, {
+        },*/ {
             name: 'click a.js-register',
             handler: function (oEvent) {
                 oEvent.preventDefault();
@@ -101,6 +101,7 @@
 //                        window.location.reload();
                         that.emit('register');
                     } else {
+                       // alert("注册失败！");
                         oResult.msgname && that.iptError(that.usernameIpt, oResult.msgname);
                         oResult.msgpwd && that.iptError(that.pwdIpt, oResult.msgpwd);
                         oResult.msgemail && that.iptError(that.emailIpt, oResult.msgemail);
@@ -123,12 +124,12 @@
 
     function fStaticShow(oConf) {
         var that = this;
-        var oLogin = new PopupReigster(oConf);
+        var oRegister = new PopupReigster(oConf);
         var oPopup = new Popup({
             width: 540,
-            content: oLogin.html()
+            content: oRegister.html()
         });
-        oLogin._popup = oPopup;
+        oRegister._popup = oPopup;
         Component.setEvents();
     }
 
@@ -147,23 +148,20 @@
 
     function fVal(oData) {
         var that = this;
-        var oEl = that.getEl();
-        var oUsername = that.usernameIpt.find('input');
+        var oUsernameIpt = that.usernameIpt.find('input');
         var oEmailIpt = that.emailIpt.find('input');
         var oPwdIpt = that.pwdIpt.find('input');
-        var oRemberChk = oEl.find('.js-rember');
+
         if (arguments.length === 0) {
             return {
-                username: $.trim(oUsername.val()),
+                username: $.trim(oUsernameIpt.val()),
                 pwd: $.trim(oPwdIpt.val()),
-                email: $.trim(oEmailIpt.val()),
-                rember: oRemberChk.prop('checked')
+                email: $.trim(oEmailIpt.val())
             };
         } else {
-            oUsername.val($.trim(oData.username));
+            oUsernameIpt.val($.trim(oData.username));
             oPwdIpt.val($.trim(oData.pwd));
             oEmailIpt.val($.trim(oData.email));
-            oRemberChk.prop('checked', !!oData.rember);
         }
     }
 
@@ -193,6 +191,7 @@
              bRight = false;
              return bRight;
          }
+        return bRight;
     }
 
     function fIptSucc(oIpt) {
@@ -204,7 +203,7 @@
             oIpt.append('<i class="input-icon icon-ok-sign"></i>');
         }
     }
-    
+
     function fIptError(oIpt, sMsg) {
         var that = this;
         oIpt = $(oIpt);

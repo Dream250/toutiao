@@ -40,11 +40,11 @@
     function fClickRegister(){
         var that = this;
         PopupReigster.show({
-            listeners: {
+            listeners: {/*
                 login: function () {
                     //alert('login');
                     window.location.reload();
-                },
+                },*/
                 register: function () {
                     //alert('reg');
                     window.location.reload();

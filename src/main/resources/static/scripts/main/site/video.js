@@ -28,10 +28,10 @@
         var that = this;
         PopupReigster.show({
             listeners: {
-                login: function () {
+                /*login: function () {
                     //alert('login');
                     window.location.reload();
-                },
+                },*/
                 register: function () {
                     //alert('reg');
                     window.location.reload();

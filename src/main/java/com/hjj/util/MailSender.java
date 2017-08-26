@@ -29,8 +29,8 @@ public class MailSender implements InitializingBean {
     public boolean sendWithHTMLTemplate(String to, String subject,
                                         String template, Map<String, Object> model) {
         try {
-            String nick = MimeUtility.encodeText("hjj");
-            InternetAddress from = new InternetAddress(nick + "<2032311416@qq.com>");
+            String nick = MimeUtility.encodeText("Dream");
+            InternetAddress from = new InternetAddress(nick + " <hujj250@foxmail.com>");
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
             String result = VelocityEngineUtils
@@ -47,18 +47,14 @@ public class MailSender implements InitializingBean {
         }
     }
 
-
-    //xngvksirzoxaehfd
     @Override
     public void afterPropertiesSet() throws Exception {
         mailSender = new JavaMailSenderImpl();
-
         // 请输入自己的邮箱和密码，用于发送邮件
-        mailSender.setUsername("2032311416@qq.com");
-        mailSender.setPassword("123456");
-        mailSender.setHost("smtp.exmail.qq.com");
+        mailSender.setUsername("hujj250@foxmail.com");
+        mailSender.setPassword("olxbsreyvppibijh");
+        mailSender.setHost("smtp.qq.com");
         // 请配置自己的邮箱和密码
-
         mailSender.setPort(465);
         mailSender.setProtocol("smtps");
         mailSender.setDefaultEncoding("utf8");

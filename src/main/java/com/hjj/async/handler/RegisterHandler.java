@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * Created by Administrator on 2017/8/8.
+ * Created by Administrator on 2017/8/25.
  */
 @Component
-public class LoginExceptionHandler implements EventHandler {
+public class RegisterHandler implements EventHandler {
     @Autowired
     MessageService messageService;
 
@@ -26,22 +26,21 @@ public class LoginExceptionHandler implements EventHandler {
     public void doHandle(EventModel model) {
         Message message = new Message();
         message.setToId(model.getActorId());
-        message.setContent("成功登录！");
+        message.setContent("注册成功！");
         // SYSTEM ACCOUNT
-        message.setFromId(3);
+        message.setFromId(model.getActorId());
         message.setCreatedDate(new Date());
         messageService.addMessage(message);
 
         Map<String, Object> map = new HashMap();
         map.put("username", model.getExt("username"));
 
-        mailSender.sendWithHTMLTemplate(model.getExt("email"), "登录成功",
-                "mails/welcome.html", map);
+        mailSender.sendWithHTMLTemplate(model.getExt("email"), "注册成功",
+                "mails/register.html", map);
     }
 
     @Override
     public List<EventType> getSupportEventTypes() {
-        return Arrays.asList(EventType.LOGIN);
+        return Arrays.asList(EventType.Register);
     }
 }
-

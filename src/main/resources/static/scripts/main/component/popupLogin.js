@@ -150,6 +150,7 @@
         var oUsernameIpt = that.usernameIpt.find('input');
         var oPwdIpt = that.pwdIpt.find('input');
         var oRemberChk = oEl.find('.js-rember');
+
         if (arguments.length === 0) {
             return {
                 username: $.trim(oUsernameIpt.val()),

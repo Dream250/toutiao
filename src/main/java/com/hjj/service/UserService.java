@@ -1,6 +1,5 @@
 package com.hjj.service;
 
-
 import com.hjj.dao.LoginTicketDAO;
 import com.hjj.dao.UserDAO;
 import com.hjj.model.LoginTicket;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-
 
 /**
  * Created by Administrator on 2017/7/8.
@@ -60,6 +58,7 @@ public class UserService {
         user.setEmail(email);
         userDAO.addUser(user);
 
+        map.put("userId",user.getId());
         //注册后登录，发放ticket值
         String ticket=addLoginTicket(user.getId());
         map.put("ticket",ticket);
@@ -88,6 +87,8 @@ public class UserService {
             return map;
         }
 
+        map.put("userId",user.getId());
+        map.put("email",user.getEmail());
         //发放ticket值
         String ticket=addLoginTicket(user.getId());
         map.put("ticket",ticket);
@@ -108,6 +109,10 @@ public class UserService {
 
     public User getUser(int id) {
         return userDAO.selectById(id);
+    }
+
+    public User getUserByName(String name){
+        return userDAO.selectByName(name);
     }
 
     //退出登录

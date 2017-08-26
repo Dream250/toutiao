@@ -1,11 +1,11 @@
 package com.hjj.controller;
 
+
 import com.hjj.async.EventModel;
 import com.hjj.async.EventProducer;
 import com.hjj.async.EventType;
 import com.hjj.service.UserService;
 import com.hjj.util.Util;
-import jdk.nashorn.internal.ir.RuntimeNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+
 import java.util.Map;
 
 /**
@@ -55,9 +55,10 @@ public class LoginController {
                 }
                 response.addCookie(cookie);
 
-               /* eventProducer.fireEvent(new
+                String email=(String)map.get("email");
+                eventProducer.fireEvent(new
                         EventModel(EventType.LOGIN).setActorId((int) map.get("userId"))
-                        .setExt("username", username).setExt("to", "saf"));*/
+                        .setExt("username", username).setExt("email", email));
 
                 return Util.getJSONString(0, "成功");
             }else{
@@ -88,6 +89,10 @@ public class LoginController {
                     cookie.setMaxAge(3600*24*5);
                 }
                 response.addCookie(cookie);
+
+                eventProducer.fireEvent(new
+                        EventModel(EventType.Register).setActorId((int) map.get("userId"))
+                        .setExt("username", username).setExt("email", email));
                 return Util.getJSONString(0,"注册成功");
             }else return Util.getJSONString(1,map);
         }catch (Exception e){
@@ -95,5 +100,4 @@ public class LoginController {
             return Util.getJSONString(1,"注册异常");
         }
     }
-
 }
