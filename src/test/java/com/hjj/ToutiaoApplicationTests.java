@@ -10,7 +10,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @SpringApplicationConfiguration(classes = ToutiaoApplication.class)
 @WebAppConfiguration
 public class ToutiaoApplicationTests {
-
 	@Test
 	public void contextLoads() {
 	}

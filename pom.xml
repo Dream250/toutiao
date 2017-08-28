@@ -5,8 +5,8 @@
 
 	<groupId>com.hjj</groupId>
 	<artifactId>toutiao</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0</version>
+	<packaging>war</packaging>
 
 	<name>toutiao</name>
 	<description>Demo project for Spring Boot</description>
@@ -56,11 +56,25 @@
         </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.webjars.npm/video.js -->
-        <dependency>
+      <!--  <dependency>
             <groupId>org.webjars.npm</groupId>
             <artifactId>video.js</artifactId>
             <version>6.2.0</version>
+        </dependency>-->
+
+       <!-- <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>-->
+
 
         <dependency>
             <groupId>com.qiniu</groupId>
