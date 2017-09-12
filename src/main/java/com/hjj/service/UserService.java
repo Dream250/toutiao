@@ -35,7 +35,7 @@ public class UserService {
             return map;
         }
         if(StringUtils.isBlank(email)){
-            map.put("msgemail","密码不能为空！");
+            map.put("msgemail","邮箱不能为空！");
             return map;
         }
         User user=userDAO.selectByName(username);
@@ -101,7 +101,7 @@ public class UserService {
         Date date=new Date();
         date.setTime(date.getTime()+1000*3600*24);
         ticket.setExpired(date);
-        ticket.setStatus(0);
+        ticket.setStatus(0); //0表示未过期
         ticket.setTicket(UUID.randomUUID().toString().replaceAll("-",""));
         loginTicketDAO.addLoginTicket(ticket);
         return ticket.getTicket();

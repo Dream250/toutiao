@@ -46,7 +46,7 @@ public class HomeController {
     //  /pages/type1?page=1
     @RequestMapping(path={"/pages/type1"})
     public String page(@RequestParam(value="page") int page,
-                       @RequestParam(value="pop",defaultValue = "0")int pop,
+                       @RequestParam(value="pop",defaultValue = "0") int pop,
                        Model model){
         List<ViewObject> list=getNews(0,0,15);
         //总记录数

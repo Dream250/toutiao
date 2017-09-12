@@ -4,8 +4,9 @@ import com.hjj.async.EventHandler;
 import com.hjj.async.EventModel;
 import com.hjj.async.EventType;
 import com.hjj.model.Message;
+import com.hjj.service.MailSender;
 import com.hjj.service.MessageService;
-import com.hjj.util.MailSender;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
