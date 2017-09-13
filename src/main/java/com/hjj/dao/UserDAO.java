@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.*;
 public interface UserDAO {
     String TABLE_NAME="user";
     String INSERT_FIELDS="name,password,salt,head_url,email";
-    String SELECT_FIELDS="id,name,password,salt,head_url,email";
+    String SELECT_FIELDS="id,name,password,salt,head_url,email,authority";
 
     @Insert({"insert into",TABLE_NAME,"("+INSERT_FIELDS+")" +
             "values(#{name},#{password},#{salt},#{headUrl},#{email})"})

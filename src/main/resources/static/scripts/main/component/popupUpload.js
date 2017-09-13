@@ -20,9 +20,9 @@ var oPopupUpload = new PopupUpload({
                         '<a href="javascript:void(0);" class="btn btn-info btn-upload js-upload-btn" style="diplay:inline-block;position:relative;">上传图片</a>',
                     '</div>',
                 '</div>',
-                  '<div class="form-group"><label class="col-sm-2 control-label">标题</label><div class="col-sm-10"><input class="js-title form-control" type="text"></div></div>',
-                  '<div class="form-group"><label class="col-sm-2 control-label">链接</label><div class="col-sm-10"><input class="js-link form-control" type="text"></div></div>',
-                  '<div class="form-group">',
+                  '<div class="form-group"><label class="col-sm-2 control-label">标题</label><div class="col-sm-10"><input class="js-title form-control" type="text" placeholder="请输入标题~"></div></div>',
+                  '<div class="form-group"><label class="col-sm-2 control-label">内容</label><div class="col-sm-10"> <textarea rows="5" class="js-link form-control" type="text" placeholder="请输入内容~"></textarea></div></div>',
+            '<div class="form-group">',
                         '<div class="col-lg-10 col-lg-offset-2">',
                             '<input type="submit" value="提交" class="js-submit btn btn-default btn-info">',
                         '</div>',
@@ -59,12 +59,14 @@ var oPopupUpload = new PopupUpload({
                 var that = this;
                 var oEl = that.getEl();
                 var sTitle = $.trim(oEl.find('input.js-title').val());
-                var sLink = $.trim(oEl.find('input.js-link').val());
+                /*var sLink = $.trim(oEl.find('input.js-link').val());*/
+                var sLink = $.trim(oEl.find('textarea.js-link').val());
+                sLink=sLink.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
                 if (!sTitle) {
                     return alert('标题不能为空');
                 }
                 if (!sLink) {
-                    return alert('链接不能为空');
+                    return alert('内容不能为空');
                 }
                 if (!that.image) {
                     return alert('图片不能为空');

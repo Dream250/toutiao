@@ -21,15 +21,20 @@
                     <img src="$!{news.image}" alt="">
                 </div>
                 <div class="content-main">
-                    <h3 class="title">
-                        <a target="_blank" rel="external nofollow" href="$!{news.link}">$!{news.title}</a>
-                    </h3>
-                    <div class="meta">
+                    <!--<h2 class="title">-->
+                        <!--<a target="_blank" rel="external nofollow" href="$!{news.link}">$!{news.title}</a>-->
+                    <!--<h2>
+                        <a target="_blank" rel="external nofollow">$!{news.title}</a>
+                    </h2>-->
+                    <center>
+                        <h3>$!{news.title}</h3>
+                    </center>
+                    <!--<div class="meta">
                         $!{news.link}
                               <span>
                                   <i class="fa icon-comment"></i> $!{news.commentCount}
                               </span>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="user-info">
@@ -41,7 +46,15 @@
             <div class="subject-name">来自 <a href="/user/$!{owner.id}">$!{owner.name}</a></div>
         </div>
 
+
         <div class="post-comment-form">
+            <br/>
+            <div>
+                <h4>
+                    $!{news.link}
+                </h4>
+            </div>
+            <br/>
             #if($user)
             <span>评论 ($!{news.commentCount})</span>
             <form method="post" action="/addComment">
@@ -50,7 +63,7 @@
                 <div class="form-group text required comment_content">
                     <label class="text required sr-only">
                         <abbr title="required">*</abbr> 评论</label>
-                    <textarea rows="5" class="text required comment-content form-control" name="content" id="content" placeholder="发表你的感受吧~~"></textarea>
+                    <textarea rows="5" class="text required comment-content form-control" name="content" id="content" placeholder="发表你的感受吧~~" required oninvalid="setCustomValidity('你还没有写评论呦~');" oninput="setCustomValidity('');"></textarea>
                 </div>
                 <div class="text-right">
                     <input type="submit" name="commit" value="提 交" class="btn btn-default btn-info">

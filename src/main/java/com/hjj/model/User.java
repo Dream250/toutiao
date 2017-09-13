@@ -10,6 +10,15 @@ public class User {
     private String salt;
     private String headUrl;
     private String email;
+    private int authority;
+
+    public void setAuthority(int authority){
+        this.authority=authority;
+    }
+
+    public int getAuthority(){
+        return authority;
+    }
 
     public String getEmail() {
         return email;
