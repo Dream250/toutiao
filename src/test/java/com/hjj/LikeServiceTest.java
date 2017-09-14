@@ -5,12 +5,8 @@ package com.hjj;
  */
 
 import com.hjj.service.LikeService;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Before;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -27,29 +23,29 @@ public class LikeServiceTest {
     public void testLike(){
         likeService.like(123,1,1);
         Assert.assertEquals(1,likeService.getLikeStatus(123,1,1));
-        System.out.print("A");
+        System.out.println("A");
     }
 
     @Test
     public void testLikeB(){
-        System.out.print("B");
+        System.out.println("B");
     }
 
-    @Before("")
+    @Before
     public void setUp(){
         System.out.println("Setup");
     }
-    @After("")
+    @After
     public void tearDown(){
-
+        System.out.println("tearDown");
     }
     @BeforeClass
     public static void beforeClass(){
-
+        System.out.println("beforeClass");
     }
 
     @AfterClass
     public static void afterClass(){
-
+        System.out.println("afterClass");
     }
 }

@@ -73,4 +73,8 @@ public class NewsService {
     public int updateLikeCount(int id, int count) {
         return newsDAO.updateLikeCount(id, count);
     }
+
+    public List<News> selectByUserIdAndOffset(int userId,int offset, int limit){
+        return newsDAO.selectByUserIdAndOffset(userId,offset,limit);
+    }
 }

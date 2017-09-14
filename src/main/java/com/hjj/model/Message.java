@@ -13,6 +13,15 @@ public class Message {
     private Date createdDate;
     private int hasRead;
     private String conversationId;
+    private int status;
+
+    public int getStatus(){
+        return status;
+    }
+
+    public void setStatus(int status){
+        this.status = status;
+    }
 
     public int getToId() {
         return toId;

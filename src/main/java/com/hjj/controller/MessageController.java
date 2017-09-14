@@ -42,17 +42,13 @@ public class MessageController {
             int localUserId=hostHolder.getUser().getId();
             List<ViewObject> conversations=new ArrayList<ViewObject>();
             List<Message> conversationList=messageService.getConversationList(localUserId,0,10);
-            for(Message msg:conversationList){
-                ViewObject vo =new ViewObject();
-                vo.set("conversation",msg);
+            for (Message msg : conversationList) {
+                ViewObject vo = new ViewObject();
+                vo.set("conversation", msg);
                 int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
                 User user = userService.getUser(targetId);
-                vo.set("user",user);
-                vo.set("headUrl", user.getHeadUrl());
-                vo.set("userName", user.getName());
-                vo.set("targetId", targetId);
-                vo.set("totalCount", msg.getId());
-                vo.set("unreadCount", messageService.getUnreadCount(localUserId, msg.getConversationId()));
+                vo.set("user", user);
+                vo.set("unread", messageService.getUnreadCount(localUserId, msg.getConversationId()));
                 conversations.add(vo);
             }
             model.addAttribute("conversations",conversations);
@@ -62,12 +58,13 @@ public class MessageController {
         return "letter";
     }
 
-    @RequestMapping(path = {"/msg/detail"}, method = {RequestMethod.GET})
-    public String conversationDetail(Model model, @RequestParam("conversationId") String conversationId) {
+     @RequestMapping(path = {"/msg/detail"}, method = {RequestMethod.GET})
+     public String conversationDetail(Model model, @RequestParam("conversationId") String conversationId) {
         try {
             List<ViewObject> messages = new ArrayList<>();
             List<Message> conversationList = messageService.getConversationDetail(conversationId, 0, 10);
             for (Message msg : conversationList) {
+                messageService.updateHasRead(msg.getId(),1); // 已读
                 ViewObject vo = new ViewObject();
                 vo.set("message", msg);
                 User user = userService.getUser(msg.getFromId());
@@ -79,6 +76,7 @@ public class MessageController {
                 messages.add(vo);
             }
             model.addAttribute("messages", messages);
+            model.addAttribute("conversationId",conversationId);
             return "letterDetail";
         } catch (Exception e) {
             logger.error("获取站内信列表失败" + e.getMessage());
@@ -109,5 +107,11 @@ public class MessageController {
         }
     }
 
+    @RequestMapping("/msg/delete")
+     public String deleteMessage(@RequestParam("messageId") int messageId,
+                                 @RequestParam("conversationId") String conversationId){
+        messageService.deleteMessage(messageId,1);
+        return "redirect:/msg/detail?conversationId="+conversationId;
+    }
 
 }
