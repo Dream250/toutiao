@@ -3,6 +3,7 @@
 */
 
 
+
 html {
   background-color: #f0f3f4;
 }
@@ -44,6 +45,26 @@ a:focus {
 label {
   font-weight: normal;
 }
+
+
+.main2{
+    float: left;
+
+    border: 1px;
+    width: 100%;
+}
+
+.left{
+    float: left;
+    margin-left: 100px;
+    width: 20%;
+}
+
+.right{
+    float: right;
+    width: 60%;
+}
+
 
 small,
 .small {

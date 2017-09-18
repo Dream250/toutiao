@@ -21,11 +21,11 @@
                     <img src="$!{news.image}" alt="">
                 </div>
                 <div class="content-main">
-                    <!--<h2 class="title">-->
+                    #*<!--<h2 class="title">-->
                         <!--<a target="_blank" rel="external nofollow" href="$!{news.link}">$!{news.title}</a>-->
                     <!--<h2>
                         <a target="_blank" rel="external nofollow">$!{news.title}</a>
-                    </h2>-->
+                    </h2>-->*#
                     <center>
                         <h3>$!{news.title}</h3>
                     </center>
@@ -39,11 +39,12 @@
             </div>
             <div class="user-info">
                 <div class="user-avatar">
-                    <a href="/user/$!{owner.id}"><img width="32" class="img-circle" src="$!{owner.headUrl}"></a>
+                    #*/personal?userId=$!{owner.id}*#
+                    <a href="/personal?userId=$!{owner.id}"><img width="32" class="img-circle" src="$!{owner.headUrl}"></a>
                 </div>
             </div>
 
-            <div class="subject-name">来自 <a href="/user/$!{owner.id}">$!{owner.name}</a></div>
+            <div class="subject-name">来自 <a href="/personal?userId=$!{owner.id}">$!{owner.name}</a></div>
         </div>
 
 
@@ -94,7 +95,7 @@
         </div>
 
     </div>
-    <script type="text/javascript">
+   #* <!--<script type="text/javascript">
           $(function(){
 
             // If really is weixin
@@ -135,7 +136,7 @@
 
           })
 
-    </script>
+    </script> -->*#
     <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
 </div>
 #parse("footer.html")

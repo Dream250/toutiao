@@ -55,10 +55,10 @@ public class LoginController {
                 }
                 response.addCookie(cookie);
 
-                String email=(String)map.get("email");
+               /* String email=(String)map.get("email");
                 eventProducer.fireEvent(new
                         EventModel(EventType.LOGIN).setActorId((int) map.get("userId"))
-                        .setExt("username", username).setExt("email", email));
+                        .setExt("username", username).setExt("email", email));*/
 
                 return Util.getJSONString(0, "成功");
             }else{
@@ -90,9 +90,9 @@ public class LoginController {
                 }
                 response.addCookie(cookie);
 
-                eventProducer.fireEvent(new
+               /* eventProducer.fireEvent(new
                         EventModel(EventType.Register).setActorId((int) map.get("userId"))
-                        .setExt("username", username).setExt("email", email));
+                        .setExt("username", username).setExt("email", email));*/
                 return Util.getJSONString(0,"注册成功");
             }else return Util.getJSONString(1,map);
         }catch (Exception e){
