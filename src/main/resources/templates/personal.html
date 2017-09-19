@@ -13,28 +13,146 @@
         </div>
     </div>
 
-
     <div class="right">
+        <h2 class="date">
+            <i class="fa icon-calendar"></i>
+            #if($vo.flag == 0)
+            <span>我&nbsp;的&nbsp;分&nbsp;享</span>
+            #else
+            <span>他&nbsp;的&nbsp;分&nbsp;享</span>
+            #end
+        </h2>
+
+        <div class="box">
+            <ul class="tab-header" id="tabheader">
+                <li class="active">资讯</li>
+                <li>视频</li>
+            </ul>
+            <div>
+                <ul class="tab-con" id="tabcon">
+                    <li style="display:block;">
+                        #parse("personalNews.html")
+                    </li>
+                    <li>#parse("personalVideo.html")</li>
+                </ul>
+            </div>
+        </div>
+        <script>
+            window.onload = function(){
+                mytab("tabheader","tabcon")
+            }
+            function mytab(head,con){
+                var tabhead = document.getElementById(head),
+                        tabcon = document.getElementById(con),
+                        hLi = tabhead.getElementsByTagName('li'),
+                        cLi = tabcon.getElementsByTagName('li'),
+                        Length = hLi.length;
+                for(var i=0;i<Length;i++){
+                    hLi[i].num = i;
+                    hLi[i].onclick = function(){
+                        for(var j=0;j<Length;j++){
+                            hLi[j].className="";
+                            cLi[j].style.display = "none";
+                        }
+                        this.className = "active";
+                        cLi[this.num].style.display = "block";
+                        console.log(cLi.length);
+                    }
+                }
+            }
+
+        </script>
+
+
+    #*<!--<script language="JavaScript">
+        function show(id){
+            document.getElementById("news").style.display="none";
+            document.getElementById("video").style.display="none";
+            document.getElementById(id).style.display="";
+        }
+    </script>
+    &lt;!&ndash;<div id="news">#parse("personalNews.html")</div>
+    <div id="video">#parse("personalVideo.html")</div>&ndash;&gt;
+    <div id="news">asfs</div>
+    <div id="video">afd</div>
+    <input type="button" value="资讯"  onclick="show('news')">
+    <input type="button" value="视频" onclick="show('video')">-->*#
+
+   #* <!--<div class="right">
         <div class="container" id="daily">
             <div class="jscroll-inner">
                 <div class="daily">
                     <h2 class="date">
                         <i class="fa icon-calendar"></i>
-                        <span>我&nbsp;的&nbsp;分&nbsp;享</span>
+                        #if($vo.flag == 0)
+                            <span>我&nbsp;的&nbsp;分&nbsp;享</span>
+                        #else
+                            <span>他&nbsp;的&nbsp;分&nbsp;享</span>
+                        #end
                     </h2>
+                    #set($cur_date = '')
+                    #foreach($v in $vos1)
+                    #if ($cur_date != $date.format('yyyy-MM-dd', $v.news.createdDate))
+                        #if ($foreach.index > 0)
+                            </div> ## 上一个要收尾
+                        #end
+                        #set($cur_date = $date.format('yyyy-MM-dd', $v.news.createdDate))
+                    <h3 class="date">
+                        <span>$date.format('yyyy-MM-dd', $v.news.createdDate)</span>
+                    </h3>
+
+                <div class="posts">
+                    #end
+                    <div class="post">
+                        <div class="votebar">
+                            #if ($v.like > 0)
+                            <button class="click-like up pressed" data-id="$!{v.news.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{v.news.likeCount}</span></button>
+                            #else
+                            <button class="click-like up" data-id="$!{v.news.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{v.news.likeCount}</span></button>
+                            #end
+                            #if($v.like < 0)
+                            <button class="click-dislike down pressed" data-id="$!{v.news.id}" title="踩"><i class="vote-arrow"></i></button>
+                            #else
+                            <button class="click-dislike down" data-id="$!{v.news.id}" title="踩"><i class="vote-arrow"></i></button>
+                            #end
+                        </div>
+                        <div class="content" onClick="window.location.href='/news/$!{vo.news.id}'">
+                            <div >
+                                <img class="content-img" src="$!{v.news.image}" alt="">
+                            </div>
+                            <div class="content-main">
+                                <h3 class="title">
+                                    <a target="_blank" rel="external nofollow" >$!{v.news.title}</a>
+                                </h3>
+                                <div class="meta">
+                                    &lt;!&ndash; $!{vo.news.link}&ndash;&gt;
+                                        <span>
+                                            <i class="fa icon-comment"></i> $!{v.news.commentCount}
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-info">
+                            <div class="user-avatar">
+                                <a href="/personal?userId=$!{vo.user.id}"><img width="32" class="img-circle" src="$!{v.user.headUrl}"></a>
+                            </div>
+                        </div>
+                        <div class="subject-name">来自 <a href="/personal?userId=$!{v.user.id}">$!{vo.user.name}</a></div>
+                    </div>
+                    #if ($foreach.count == $vos.size()) ##最后有个元素要收尾
+                </div>
+                #end
+                #end
                 </div>
             </div>
-        </div>
+    </div>-->*#
     </div>
 </div>
-
-
-
-
 
 
 <script>
     window.name=document.getElementById("username").innerHTML;
 </script>
 <script type="text/javascript" src="/scripts/main/site/personal.js"></script>
-#parse("footer.html")
+#*<!--
+#parse("footer.html")-->*#

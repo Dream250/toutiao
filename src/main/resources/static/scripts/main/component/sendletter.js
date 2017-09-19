@@ -23,20 +23,11 @@ var oPopupUpload = new PopupUpload({
                         'document.getElementById("name").innerHTML=value',
                     '</script>',
                 '</div>',
-                  '<div class="form-group"><label class="col-sm-2 control-label">发送内容</label><div class="col-sm-10"> <textarea rows="5" class="js-link form-control" type="text" placeholder="请输入内容~"></textarea></div></div>',
-                    /*'<div class="form-group">',
-                        *//*'<div class="col-lg-10 col-lg-offset-2">',
-                            '<input type="submit" value="发送" class="js-submit btn btn-default btn-info">',
-                        '</div>',
-                        '<div class="col-lg-10 col-lg-offset-2">',
-                            '<input type="submit" value="取消" class="js-submit btn btn-default btn-info">',
-                        '</div>',*//*
-
-                    '</div>',*/
+                  '<div class="form-group"><label class="col-sm-2 control-label">发送内容</label><div class="col-sm-10"> <textarea rows="5" class="js-content form-control" type="text" placeholder="请输入内容~" id="content"></textarea></div></div>',
                 '<div class="form-group">',
                     '<div class="col-input-login">',
-                        '<a class="btn btn-info js-login" href="javascript:void(0);">发送</a>',
-                        '<a class="btn btn-info js-register" href="javascript:void(0);">取消</a>',
+                        '<a class="btn btn-info js-send" href="javascript:void(0);">发送</a>',
+                        '<a class="btn btn-info js-cancel" href="javascript:void(0);">取消</a>',
                     '</div>',
                 '</div>',
             '</div>'].join(''),
@@ -46,43 +37,17 @@ var oPopupUpload = new PopupUpload({
             handler: function () {
                 var that = this;
                 var oEl = that.getEl();
-                var oUploadBtn = oEl.find('a.js-upload-btn');
-
-                new Upload({
-                    targetEl: oUploadBtn,
-                    url: '/uploadImage/',
-                    check: function (oFile, sType, nFileSize) {
-                        var sMsg = nFileSize === 0 ? '文件大小不能为0' : /image/gi.test(sType || '') ? '' : '文件格式不正确';
-                        sMsg && alert(sMsg);
-                        return !sMsg;
-                    },
-                    call: function (oResult) {
-                        var sUrl = $.trim(oResult.msg);
-                        if (oResult.code !== 0) {
-                            return alert('出现错误，请重试');
-                        }
-                        that.image = sUrl;
-                        that.showImage(sUrl);
-                    }
-                });
             }
         }, {
-            name: 'click input.js-submit',
+            name: 'click a.js-send',
             handler: function () {
                 var that = this;
                 var oEl = that.getEl();
-                var sTitle = $.trim(oEl.find('input.js-title').val());
-                /*var sLink = $.trim(oEl.find('input.js-link').val());*/
-                var sLink = $.trim(oEl.find('textarea.js-link').val());
-                sLink=sLink.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
-                if (!sTitle) {
-                    return alert('标题不能为空');
-                }
-                if (!sLink) {
+                var sName = $.trim(oEl.find('label.js-name').val());
+                var sContent = $.trim(oEl.find('textarea.js-content').val());
+                sContent=sContent.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
+                if (!sContent) {
                     return alert('内容不能为空');
-                }
-                if (!that.image) {
-                    return alert('图片不能为空');
                 }
                 if (that.requesting) {
                     return;
@@ -91,7 +56,7 @@ var oPopupUpload = new PopupUpload({
                 $.ajax({
                     url: '/user/addNews/',
                     method: 'post',
-                    data: {image: that.image, title: sTitle, link: sLink},
+                    data: { title: sName, link: sContent},
                     dataType: 'json'
                 }).done(function (oResult) {
                     that.emit('done');
@@ -101,18 +66,21 @@ var oPopupUpload = new PopupUpload({
                     that.requesting = false;
                 });
             }
+        },{
+            name: 'click a.js-cancel',
+            handler: function () {
+                var that = this;
+                document.getElementById("content").value="";
+            }
         }],
         show: fStaticShow
     }, {
-        initialize: fInitialize,
-        showImage: fShowImage
+        initialize: fInitialize
     });
 
     function fStaticShow(oConf,username) {
         var that = this;
-
         window.username = username;
-
         var oLogin = new PopupUpload(oConf);
         var oPopup = new Popup({
             title: '发送私信',
@@ -127,19 +95,6 @@ var oPopupUpload = new PopupUpload({
         var that = this;
         delete oConf.renderTo;
         PopupUpload.superClass.initialize.apply(that, arguments);
-    }
-
-    function fShowImage(sUrl) {
-        var that = this;
-        var oEl = that.getEl();
-        var sHtml = [
-            '<div class="letter-pic-box">',
-                '<a href="javascript:void(0);" class="icon-remove-circle"></a>',
-                '<div class="mask"></div>',
-                '<img src="' + sUrl + '">',
-            '</div>'].join('');
-        oEl.find('div.letter-pic-box').remove();
-        oEl.find('div.js-image-container').prepend(sHtml);
     }
 
 })(window);

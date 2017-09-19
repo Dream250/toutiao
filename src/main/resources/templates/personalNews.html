@@ -1,0 +1,94 @@
+<div >
+    #*<!--<div class="container" id="daily">-->*#
+    <div class="container" id="daily">
+        <div class="jscroll-inner">
+            <div  class="daily">
+                #*<!--<h2 class="date">
+                    <i class="fa icon-calendar"></i>
+                    #if($vo.flag == 0)
+                    <span>我&nbsp;的&nbsp;分&nbsp;享</span>
+                    #else
+                    <span>他&nbsp;的&nbsp;分&nbsp;享</span>
+                    #end
+                </h2>-->*#
+                #set($cur_date = '')
+                #foreach($v in $vos1)
+                #if ($cur_date != $date.format('yyyy-MM-dd', $v.news.createdDate))
+                #if ($foreach.index > 0)
+            </div> ## 上一个要收尾
+            #end
+            #set($cur_date = $date.format('yyyy-MM-dd', $v.news.createdDate))
+            <h3 class="date">
+                <span>$date.format('yyyy-MM-dd', $v.news.createdDate)</span>
+            </h3>
+
+            <div class="posts">
+                #end
+                <div class="post">
+                    <div class="votebar">
+                        #if ($v.like > 0)
+                        <button class="click-like up pressed" data-id="$!{v.news.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{v.news.likeCount}</span></button>
+                        #else
+                        <button class="click-like up" data-id="$!{v.news.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{v.news.likeCount}</span></button>
+                        #end
+                        #if($v.like < 0)
+                        <button class="click-dislike down pressed" data-id="$!{v.news.id}" title="踩"><i class="vote-arrow"></i></button>
+                        #else
+                        <button class="click-dislike down" data-id="$!{v.news.id}" title="踩"><i class="vote-arrow"></i></button>
+                        #end
+                    </div>
+                    <div class="content" onClick="window.location.href='/news/$!{v.news.id}'">
+                        <div >
+                            <img class="content-img" src="$!{v.news.image}" alt="">
+                        </div>
+                        <div class="content-main">
+                            <h3 class="title">
+                                <a target="_blank" rel="external nofollow" >$!{v.news.title}</a>
+                            </h3>
+                            <div class="meta">
+                                <!-- $!{vo.news.link}-->
+                                        <span>
+                                            <i class="fa icon-comment"></i> $!{v.news.commentCount}
+                                        </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-avatar">
+                            <a href="javascript:void(0);"><img width="32" class="img-circle" src="$!{vo.user.headUrl}"></a>
+                        </div>
+                    </div>
+                    <div class="subject-name">来自 <a href="javascript:void(0);">$!{vo.user.name}</a></div>
+                </div>
+                #if ($foreach.count == $vos1.size()) ##最后有个元素要收尾
+            </div>
+            #end
+            #end
+        </div>
+    </div>
+
+
+    <div class="page">
+        #set($a=$cur_page)
+        #if($a==1)
+        <span>上一页</span>
+        #else
+        <!--cur_page - 1 中间要加空格-->
+        #set($a= $a - 1)
+        <span><a href="/pages/type1?page=$a">上一页</a></span>
+        #end
+
+        #if($pagetotal > 0)
+        #foreach($i in [1..$pagetotal])
+        <span><a href="/pages/type1?page=$i">$i</a></span>
+        #end
+        #end
+        #set($a=$cur_page)
+        #if($pagetotal == $a)
+        <span>下一页</span>
+        #else
+        #set($a=$a + 1)
+        <span><a href="/pages/type1?page=$a">下一页</a></span>
+        #end
+    </div>
+</div>

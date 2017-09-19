@@ -49,21 +49,30 @@ label {
 
 .main2{
     float: left;
-
     border: 1px;
     width: 100%;
 }
 
 .left{
+    margin-top: 50px;
     float: left;
-    margin-left: 100px;
-    width: 20%;
+    margin-left: 50px;
+    width: 15%;
 }
 
 .right{
     float: right;
-    width: 60%;
+    width: 80%;
 }
+
+ul{list-style:none;}
+.tab-header{ height:40px; line-height:40px;  }
+.tab-header li{width:100px; float:left; text-align:center;cursor:pointer; border-radius:4px; margin-left:4px; box-shadow:0 2px 1px #333; border:1px solid #ccc;}
+.tab-header .active{
+    background: #00B091;box-shadow:0 2px 1px #333 inset;
+}
+.tab-con{}
+.tab-con li{width:300px; height:100px;  display:none;}
 
 
 small,

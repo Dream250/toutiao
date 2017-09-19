@@ -61,6 +61,7 @@ var oPopupUpload = new PopupUpload({
                 var sTitle = $.trim(oEl.find('input.js-title').val());
                 /*var sLink = $.trim(oEl.find('input.js-link').val());*/
                 var sLink = $.trim(oEl.find('textarea.js-link').val());
+                //为了接受换行，空格等
                 sLink=sLink.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
                 if (!sTitle) {
                     return alert('标题不能为空');
