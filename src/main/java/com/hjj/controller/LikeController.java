@@ -39,12 +39,9 @@ public class LikeController {
     public String like(@RequestParam("newsId") int newsId){
         int userId=hostHolder.getUser().getId();
         long likeCount=likeService.like(userId, EntityType.ENTITY_NEWS,newsId);
-
         // 更新喜欢数
-        News news = newsService.getById(newsId);
-
+        //News news = newsService.getById(newsId);
         newsService.updateLikeCount(newsId,(int) likeCount);
-
         eventProducer.fireEvent(new EventModel(EventType.LIKE)
                 .setActorId(hostHolder.getUser().getId()).setEntityId(newsId));
 

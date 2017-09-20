@@ -1,16 +1,16 @@
 #parse("header.html")
-    <div id="main">
+    #*<!--<div id="main">
         <div class="container">
             <ul class="letter-list">
                 #foreach($conversation in $conversations)
                 <li id="conversation-item-10005_622873"  onClick="window.location.href='/msg/detail?conversationId=$!{conversation.conversation.conversationId}'">
-                    <!--<a class="letter-link" href="/msg/detail?conversationId=$!{conversations.conversation.conversationId}"></a>-->
+                    &lt;!&ndash;<a class="letter-link" href="/msg/detail?conversationId=$!{conversations.conversation.conversationId}"></a>&ndash;&gt;
                     <div class="letter-info">
                         <span class="l-time">$!date.format('yyyy-MM-dd HH:mm:ss', $!{conversation.conversation.createdDate})</span>
                         <div class="l-operate-bar">
-                            <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
+                            &lt;!&ndash;<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
                             删除
-                            </a>-->
+                            </a>&ndash;&gt;
                             <a href="/msg/detail?conversationId=$!{conversation.conversation.conversationId}">
                                 共$!{conversation.conversation.id}条会话
                             </a>
@@ -40,5 +40,49 @@
                 #end
             </ul>
         </div>
+    </div>-->*#
+<div id="main">
+    <div class="container">
+        <div class="box">
+            <ul class="tab-header" id="tabheader">
+                <li class="active">系统信息</li>
+                <li>朋友私信</li>
+            </ul>
+            <div>
+                <ul class="tab-con" id="tabcon">
+                    <s style="display:block">
+                        #parse("systemLetter.html")
+                    </s>
+                    <s>
+                        #parse("friendLetter.html")
+                    </s>
+                </ul>
+            </div>
+        </div>
     </div>
+</div>
+<script>
+    window.onload = function(){
+        mytab("tabheader","tabcon")
+    }
+    function mytab(head,con){
+        var tabhead = document.getElementById(head),
+                tabcon = document.getElementById(con),
+                hLi = tabhead.getElementsByTagName('li'),
+                cLi = tabcon.getElementsByTagName('s'),
+                Length = hLi.length;
+        for(var i=0;i<Length;i++){
+            hLi[i].num = i;
+            hLi[i].onclick = function(){
+                for(var j=0;j<Length;j++){
+                    hLi[j].className="";
+                    cLi[j].style.display = "none";
+                }
+                this.className = "active";
+                cLi[this.num].style.display = "block";
+                console.log(cLi.length);
+            }
+        }
+    }
+</script>
 #parse("footer.html")

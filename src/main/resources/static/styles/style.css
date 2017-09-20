@@ -65,15 +65,38 @@ label {
     width: 80%;
 }
 
-ul{list-style:none;}
-.tab-header{ height:40px; line-height:40px;  }
-.tab-header li{width:100px; float:left; text-align:center;cursor:pointer; border-radius:4px; margin-left:4px; box-shadow:0 2px 1px #333; border:1px solid #ccc;}
-.tab-header .active{
-    background: #00B091;box-shadow:0 2px 1px #333 inset;
+ul{
+    list-style:none;
 }
-.tab-con{}
-.tab-con li{width:300px; height:100px;  display:none;}
+.tab-header{
+    height:40px;
+    line-height:40px;
+}
+.tab-header li{
+    width:100px; float:left;
+    text-align:center;cursor:pointer;
+    border-radius:4px; margin-left:4px;
+    box-shadow:0 2px 1px #333;
+    border:0px solid #ccc;
+}
+.tab-header .active{
+    background: #00B091;
+    box-shadow:0 2px 1px #333 inset;
+}
+.tab-con{
+}
+/*.tab-con li{
+    width:300px; height:100px;  display:none;
+}*/
+.tab-con s{
+    width:650px; height:100px;  display:none;
+}
 
+.tab-con1{
+}
+.tab-con1 li{
+    width:300px; height:100px;  display:none;
+}
 
 small,
 .small {
@@ -6656,6 +6679,7 @@ header.navbar .navbar-toggle .icon-bar {
 .letter-list {
     margin: -10px -20px 0;
 }
+
 .letter-list li {
     border-bottom: 1px solid #E0E0E0;
     padding: 20px 10px;
@@ -6672,6 +6696,7 @@ header.navbar .navbar-toggle .icon-bar {
     top: 0;
     z-index: 1;
 }
+
 .letter-list li:hover {
     background: #ECF0F1;
     cursor: pointer;
