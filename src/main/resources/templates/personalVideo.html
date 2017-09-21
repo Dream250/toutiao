@@ -27,14 +27,14 @@
                 <div class="post">
                     <div class="votebar">
                         #if ($v2.like > 0)
-                        <button class="click-like up pressed" data-id="$!{v2.video.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{v2.video.likeCount}</span></button>
+                        <button class="click-like2 up pressed" data-id="$!{v2.video.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{v2.video.likeCount}</span></button>
                         #else
-                        <button class="click-like up" data-id="$!{v2.video.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{v2.video.likeCount}</span></button>
+                        <button class="click-like2 up" data-id="$!{v2.video.id}" title="顶"><i class="vote-arrow"></i><span class="count">$!{v2.video.likeCount}</span></button>
                         #end
                         #if($v2.like < 0)
-                        <button class="click-dislike down pressed" data-id="$!{v2.video.id}" title="踩"><i class="vote-arrow"></i></button>
+                        <button class="click-dislike2 down pressed" data-id="$!{v2.video.id}" title="踩"><i class="vote-arrow"></i></button>
                         #else
-                        <button class="click-dislike down" data-id="$!{v2.video.id}" title="踩"><i class="vote-arrow"></i></button>
+                        <button class="click-dislike2 down" data-id="$!{v2.video.id}" title="踩"><i class="vote-arrow"></i></button>
                         #end
                     </div>
                     <div class="content" onClick="window.location.href='/video/$!{v2.video.id}'">

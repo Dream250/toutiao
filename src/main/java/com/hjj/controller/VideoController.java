@@ -48,9 +48,6 @@ public class VideoController {
             Video vi = new Video();
             if (hostHolder.getUser() != null) {
                 vi.setUserId(hostHolder.getUser().getId());
-            } else {
-                //匿名用户
-                vi.setUserId(123213);
             }
             vi.setVideo(video);
             vi.setTitle(title);

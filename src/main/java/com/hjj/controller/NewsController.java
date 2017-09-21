@@ -132,11 +132,8 @@ public class NewsController {
                           @RequestParam("link") String link){
         try{
             News news=new News();
-            if(hostHolder.getUser() !=null){
+            if(hostHolder.getUser() !=null) {
                 news.setUserId(hostHolder.getUser().getId());
-            }else {
-                //匿名
-                news.setUserId(123);
             }
             news.setImage(image);
             news.setCreatedDate(new Date());

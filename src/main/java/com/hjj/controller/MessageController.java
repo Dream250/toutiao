@@ -36,7 +36,7 @@ public class MessageController {
     @Autowired
     HostHolder hostHolder;
 
-    @RequestMapping(path = {"/msg/list"}, method = {RequestMethod.GET})
+   /* @RequestMapping(path = {"/msg/list"}, method = {RequestMethod.GET})
     public String conversationDetail(Model model){
         try{
             int localUserId=hostHolder.getUser().getId();
@@ -52,6 +52,53 @@ public class MessageController {
                 conversations.add(vo);
             }
             model.addAttribute("conversations",conversations);
+        }catch (Exception e){
+            logger.error("获取站内信列表失败！"+e.getMessage());
+        }
+        return "letter";
+    }*/
+
+    @RequestMapping(path = {"/msg/list"}, method = {RequestMethod.GET})
+    public String conversationDetail(Model model){
+        try{
+            int localUserId=hostHolder.getUser().getId();
+            /*List<ViewObject> conversations=new ArrayList<ViewObject>();
+            List<Message> conversationList=messageService.getConversationList(localUserId,0,10);
+            for (Message msg : conversationList) {
+                ViewObject vo = new ViewObject();
+                vo.set("conversation", msg);
+                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
+                User user = userService.getUser(targetId);
+                vo.set("user", user);
+                vo.set("unread", messageService.getUnreadCount(localUserId, msg.getConversationId()));
+                conversations.add(vo);
+            }
+            model.addAttribute("conversations",conversations);*/
+            List<Message> conversationSystemLetterList = messageService.getConversationSystemLetterList(localUserId,0,10);
+            List<ViewObject> systemLetterList = new ArrayList<ViewObject>();
+            for (Message msg : conversationSystemLetterList){
+                ViewObject vo = new ViewObject();
+                vo.set("conversation", msg);
+                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
+                User user = userService.getUser(targetId);
+                vo.set("user", user);
+                vo.set("unread", messageService.getSystemLetterUnreadCount(localUserId, msg.getConversationId()));
+                systemLetterList.add(vo);
+            }
+            model.addAttribute("systemLetter",systemLetterList);
+
+            List<Message> converstaionFriendLetterList = messageService.getConversionFriendLetterList(localUserId,0,10);
+            List<ViewObject> friendLetterList = new ArrayList<ViewObject>();
+            for(Message msg : converstaionFriendLetterList){
+                ViewObject vo = new ViewObject();
+                vo.set("conversation", msg);
+                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
+                User user = userService.getUser(targetId);
+                vo.set("user", user);
+                vo.set("unread", messageService.getFriendLetterUnreadCount(localUserId, msg.getConversationId()));
+                friendLetterList.add(vo);
+            }
+            model.addAttribute("friendLetter",friendLetterList);
         }catch (Exception e){
             logger.error("获取站内信列表失败！"+e.getMessage());
         }

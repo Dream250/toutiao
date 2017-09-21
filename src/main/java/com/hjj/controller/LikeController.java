@@ -5,14 +5,13 @@ import com.hjj.async.EventProducer;
 import com.hjj.async.EventType;
 import com.hjj.model.EntityType;
 import com.hjj.model.HostHolder;
-import com.hjj.model.News;
+import com.hjj.model.NewsType;
 import com.hjj.service.LikeService;
 import com.hjj.service.NewsService;
 import com.hjj.service.VideoService;
 import com.hjj.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +37,7 @@ public class LikeController {
     @ResponseBody
     public String like(@RequestParam("newsId") int newsId){
         int userId=hostHolder.getUser().getId();
-        long likeCount=likeService.like(userId, EntityType.ENTITY_NEWS,newsId);
+        long likeCount=likeService.like(userId, NewsType.TYPE_NEWS,newsId);
         // 更新喜欢数
         //News news = newsService.getById(newsId);
         newsService.updateLikeCount(newsId,(int) likeCount);
@@ -52,7 +51,7 @@ public class LikeController {
     @ResponseBody
     public String dislike(@RequestParam("newsId") int newsId){
         int userId=hostHolder.getUser().getId();
-        long likeCount=likeService.dislike(userId, EntityType.ENTITY_NEWS,newsId);
+        long likeCount=likeService.dislike(userId, NewsType.TYPE_NEWS,newsId);
         newsService.updateLikeCount(newsId,(int) likeCount);
         return Util.getJSONString(0,String.valueOf(likeCount));
     }
@@ -61,7 +60,7 @@ public class LikeController {
     @ResponseBody
     public String like2(@RequestParam("videoId") int videoId){
         int userId=hostHolder.getUser().getId();
-        long likeCount=likeService.like(userId, EntityType.ENTITY_VEDEO,videoId);
+        long likeCount=likeService.like(userId, NewsType.TYPE_VIDEO,videoId);
 
         videoService.updateLikeCount(videoId,(int) likeCount);
 
@@ -76,7 +75,7 @@ public class LikeController {
     @ResponseBody
     public String dislike2(@RequestParam("videoId") int videoId){
         int userId=hostHolder.getUser().getId();
-        long likeCount=likeService.dislike(userId, EntityType.ENTITY_VEDEO,videoId);
+        long likeCount=likeService.dislike(userId, NewsType.TYPE_VIDEO,videoId);
         videoService.updateLikeCount(videoId,(int) likeCount);
         return Util.getJSONString(0,String.valueOf(likeCount));
     }
