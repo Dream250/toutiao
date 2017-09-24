@@ -3,9 +3,7 @@ package com.hjj.controller;
 import com.hjj.async.EventModel;
 import com.hjj.async.EventProducer;
 import com.hjj.async.EventType;
-import com.hjj.model.EntityType;
-import com.hjj.model.HostHolder;
-import com.hjj.model.NewsType;
+import com.hjj.model.*;
 import com.hjj.service.LikeService;
 import com.hjj.service.NewsService;
 import com.hjj.service.VideoService;
@@ -39,11 +37,15 @@ public class LikeController {
         int userId=hostHolder.getUser().getId();
         long likeCount=likeService.like(userId, NewsType.TYPE_NEWS,newsId);
         // 更新喜欢数
-        //News news = newsService.getById(newsId);
+        News news = newsService.getById(newsId);
+        int newsOwnerId = news.getUserId();
         newsService.updateLikeCount(newsId,(int) likeCount);
-        eventProducer.fireEvent(new EventModel(EventType.LIKE)
-                .setActorId(hostHolder.getUser().getId()).setEntityId(newsId));
 
+        if(userId != newsOwnerId){
+            eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                    .setActorId(hostHolder.getUser().getId()).setEntityId(newsId)
+                    .setEntityType(NewsType.TYPE_NEWS).setEntityOwnerId(newsOwnerId));
+        }
         return Util.getJSONString(0,String.valueOf(likeCount));
     }
 
@@ -62,12 +64,15 @@ public class LikeController {
         int userId=hostHolder.getUser().getId();
         long likeCount=likeService.like(userId, NewsType.TYPE_VIDEO,videoId);
 
+        Video video = videoService.getVideoById(videoId);
+        int videoOwnerId = video.getUserId();
         videoService.updateLikeCount(videoId,(int) likeCount);
-
-        eventProducer.fireEvent(new EventModel(EventType.LIKE)
-                .setActorId(hostHolder.getUser().getId()).setEntityId(videoId));
-
-
+        if(userId!=videoOwnerId) {
+            eventProducer.fireEvent(new EventModel(EventType.LIKE)
+                    .setActorId(hostHolder.getUser().getId()).setEntityId(videoId)
+                    .setEntityType(NewsType.TYPE_VIDEO)
+                    .setEntityOwnerId(videoOwnerId));
+        }
         return Util.getJSONString(0,String.valueOf(likeCount));
     }
 

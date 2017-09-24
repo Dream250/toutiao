@@ -43,7 +43,8 @@ var oPopupUpload = new PopupUpload({
             handler: function () {
                 var that = this;
                 var oEl = that.getEl();
-                var sName = $.trim(oEl.find('label.js-name').val());
+                //var sName = $.trim(oEl.find('label.js-name').val());
+                var sName=window.username;
                 var sContent = $.trim(oEl.find('textarea.js-content').val());
                 sContent=sContent.replace(/\r\n/g, '<br/>').replace(/\n/g, '<br/>').replace(/\s/g, ' ');
                 if (!sContent) {
@@ -54,9 +55,9 @@ var oPopupUpload = new PopupUpload({
                 }
                 that.requesting = true;
                 $.ajax({
-                    url: '/user/addNews/',
+                    url: '/msg/addMessage',
                     method: 'post',
-                    data: { title: sName, link: sContent},
+                    data: { toName: sName, content: sContent},
                     dataType: 'json'
                 }).done(function (oResult) {
                     that.emit('done');

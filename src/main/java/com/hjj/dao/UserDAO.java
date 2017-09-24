@@ -22,9 +22,16 @@ public interface UserDAO {
     @Select({"select",SELECT_FIELDS,"from",TABLE_NAME,"where name=#{name}"})
     User selectByName(String name);
 
+   /* @Update({"update",TABLE_NAME,"set password=#{password} where id=#{id}"})
+    void updatePassword(User user);*/
+
     @Update({"update",TABLE_NAME,"set password=#{password} where id=#{id}"})
-    void updatePassword(User user);
+    boolean updatePassword(@Param("id") int id,
+                        @Param("password") String password);
 
     @Delete({"delete from",TABLE_NAME,"where id = #{id}"})
     void deleteById(int id);
+
+    @Select({"select authority from user where id = #{id}"})
+    int selectAuthorityById(int id);
 }

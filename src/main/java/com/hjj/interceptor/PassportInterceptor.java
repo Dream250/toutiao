@@ -47,8 +47,8 @@ public class PassportInterceptor implements HandlerInterceptor {
                 return true;
             User user=userDAO.selectById(loginTicket.getUserId());
             hostHolder.setUser(user);
-    }
-    return true;
+        }
+        return true;
     }
 
     @Override
@@ -56,7 +56,12 @@ public class PassportInterceptor implements HandlerInterceptor {
                                 HttpServletResponse httpServletResponse, Object o,
                                 ModelAndView modelAndView) throws Exception {
         if(modelAndView!=null && hostHolder.getUser()!=null){
-            modelAndView.addObject("user",hostHolder.getUser());
+            User user=hostHolder.getUser();
+            String username=user.getName();
+            int authority=user.getAuthority();
+            modelAndView.addObject("user",user);
+            modelAndView.addObject("localhostUserName",username);
+            modelAndView.addObject("authority",authority);
         }
     }
 

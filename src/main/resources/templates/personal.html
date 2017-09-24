@@ -3,12 +3,20 @@
     <div class="left">
         <img width="100" height="100" class="img-circle" src="$!{vo.user.headUrl}">
         <br/><br/>
+        <input type="hidden" value="$!{localhostUserName}" id="localhost"/>
         <h4>用户：<label id="username">$!{vo.user.name}</label></h4><br/>
         <div class="js-sendletter">
-            <div class="col-lg-10 col-lg-offset-2">
-                <a href="javascript:void(0);"><input type="submit" value="发私信" class="js-submit btn btn-default btn-info"></a>
-                <br/>
-            </div>
+            #if ($vo.user.name != $localhostUserName )
+                <div class="col-lg-10 col-lg-offset-2">
+                    <a href="javascript:void(0);"><input type="submit" value="发私信" class="js-submit btn btn-default btn-info"></a>
+                    <br/>
+                </div>
+            #else
+                <div class="col-lg-10 col-lg-offset-2">
+                    <a href="javascript:void(0);"><input type="submit" value="修改信息" class="js-submit btn btn-default btn-info"></a>
+                    <br/>
+                </div>
+            #end
         </div>
     </div>
 
@@ -150,8 +158,10 @@
 
 
 <script>
+    window.localhost = document.getElementById("localhost").value;
     window.name=document.getElementById("username").innerHTML;
 </script>
 <script type="text/javascript" src="/scripts/main/site/personal.js"></script>
 #*<!--
-#parse("footer.html")-->*#
+#parse("footer.html")-->
+*#

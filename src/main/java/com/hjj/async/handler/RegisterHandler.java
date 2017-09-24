@@ -29,7 +29,7 @@ public class RegisterHandler implements EventHandler {
         message.setToId(model.getActorId());
         message.setContent("注册成功！");
         // SYSTEM ACCOUNT
-        message.setFromId(model.getActorId());
+        message.setFromId(0);
         message.setCreatedDate(new Date());
         messageService.addMessage(message);
 

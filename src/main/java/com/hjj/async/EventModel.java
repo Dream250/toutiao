@@ -12,6 +12,7 @@ public class EventModel {
     private int entityId;
     private int entityType;
     private int entityOwnerId;
+
     private Map<String, String> exts = new HashMap<>();
 
     public Map<String, String> getExts() {

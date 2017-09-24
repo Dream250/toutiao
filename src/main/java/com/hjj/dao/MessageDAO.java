@@ -33,7 +33,7 @@ public interface MessageDAO {
     int getConversationUnReadCount(@Param("userId") int userId, @Param("conversationId") String conversationId);
 
 
-    @Select({"select count(id) from ", TABLE_NAME, " where status <> 1 and has_read = 0 and to_id=#{userId} and conversation_id=#{conversationId} and from_id=#{systemId}"})
+    @Select({"select count(id) from ", TABLE_NAME, " where status <> 1 and has_read = 0 and to_id=#{userId} and conversation_id=#{conversationId} and from_id = #{systemId}"})
     int getConversationSystemLetterUnReadCount(@Param("userId") int userId, @Param("conversationId") String conversationId,
                                                @Param("systemId") int systemId);
 

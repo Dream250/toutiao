@@ -119,4 +119,14 @@ public class UserService {
     public void logout(String ticket){
         loginTicketDAO.updateStatus(ticket,1);//1代表ticket过期
     }
+
+    //修改密码
+    public boolean modifyPassword(int id ,String password){
+        return userDAO.updatePassword(id,password);
+    }
+
+    //根据id 判断用户的权限
+    public int selectAuthorityById(int id){
+        return userDAO.selectAuthorityById(id);
+    }
 }

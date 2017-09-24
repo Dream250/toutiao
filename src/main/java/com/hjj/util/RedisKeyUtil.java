@@ -10,7 +10,7 @@ public class RedisKeyUtil {
     private static String BIZ_EVENT = "EVENT";
 
     //entityType:enentyId:like
-    public static String getLikeKey(int entityType, int entityId){
+    public static String getLikeKey(int entityId, int entityType){
         return String.valueOf(entityType)+SPIT+String.valueOf(entityId)+SPIT+BIZ_LIKE;
     }
 

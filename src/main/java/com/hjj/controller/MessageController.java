@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Controller
 public class MessageController {
-    private static final Logger logger = LoggerFactory.getLogger(NewsController.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     @Autowired
     MessageService messageService;
@@ -131,8 +131,30 @@ public class MessageController {
         return "letterDetail";
     }
 
+    @RequestMapping(path={"/msg/addMessage"},method = {RequestMethod.POST,RequestMethod.GET})
+    @ResponseBody
+    public String addMessage(
+            @RequestParam("toName") String toName,
+            @RequestParam("content") String content
+    ){
+        try {
+            Message msg = new Message();
+            int toId = userService.getUserByName(toName).getId();
+            int fromId = hostHolder.getUser().getId();
+            msg.setContent(content);
+            msg.setFromId(fromId);
+            msg.setToId(toId);
+            msg.setCreatedDate(new Date());
+            msg.setConversationId(fromId < toId ? String.format("%d_%d", toId, fromId) : String.format("%d_%d", fromId, toId));
+            messageService.addMessage(msg);
+            return Util.getJSONString(1, "成功");
+        }catch (Exception e){
+            logger.info("失败！"+e.getMessage());
+            return Util.getJSONString(0,"失败");
+        }
+    }
 
-    @RequestMapping(path={"/msg/addMessage"},method = {RequestMethod.POST})
+    /*@RequestMapping(path={"/msg/addMessage"},method = {RequestMethod.POST})
     @ResponseBody
     public String addMessage(
             @RequestParam("fromId") int fromId,
@@ -152,7 +174,7 @@ public class MessageController {
             logger.info("失败！"+e.getMessage());
             return Util.getJSONString(0,"失败");
         }
-    }
+    }*/
 
     @RequestMapping("/msg/delete")
      public String deleteMessage(@RequestParam("messageId") int messageId,

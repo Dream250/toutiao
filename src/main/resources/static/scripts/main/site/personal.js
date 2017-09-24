@@ -1,6 +1,7 @@
 (function (window, undefined) {
     var PopupLogin = Base.getClass('main.component.PopupLogin');
     var PopupUpload = Base.getClass('main.component.SendLetter');
+    var Modify = Base.getClass('main.component.Modify');
     var ActionUtil = Base.getClass('main.util.Action');
     var ActionUtil2 = Base.getClass('main.util.Action2');
     Base.ready({
@@ -27,15 +28,28 @@
     function fClickSendLetter() {
         var that = this;
         var username=window.name;
+        var localhost=window.localhost;
+        //alert("localhost:"+window.localhost);
          /*alert("user:"+window.name);*/
-        PopupUpload.show({
-            listeners: {
-                done: function () {
-                    //alert('login');
-                    window.location.reload();
+        if(username != localhost) {
+            PopupUpload.show({
+                listeners: {
+                    done: function () {
+                        //alert('login');
+                        window.location.reload();
+                    }
                 }
-            }
-        },username);
+            }, username);
+        } else{
+            Modify.show({
+                listeners: {
+                    done: function () {
+                        //alert('login');
+                        window.location.reload();
+                    }
+                }
+            },localhost);
+        }
     }
 
     function fClickLogin() {
