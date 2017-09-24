@@ -46,38 +46,7 @@
                         that.emailIpt = oEl.find('div.js-email2');
                         that.initCpn();
                     }
-            }, /*{
-            name: 'click a.js-login',
-            handler: function (oEvent) {
-                oEvent.preventDefault();
-                var that = this;
-                // 值检查
-                if (!that.checkVal()) {
-                    return;
-                }
-                var oData = that.val();
-                $.ajax({
-                    url: '/login/',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {
-                        username: oData.email,
-                        password: oData.pwd,
-                        rember: oData.rember ? 1 : 0
-                    }
-                }).done(function (oResult) {
-                    if (oResult.code === 0) {
-//                        window.location.reload();
-                        that.emit('login');
-                    } else {
-                        oResult.msgname && that.iptError(that.usernameIpt, oResult.msgname);
-                        oResult.msgpwd && that.iptError(that.pwdIpt, oResult.msgpwd);
-                    }
-                }).fail(function () {
-                    alert('出现错误，请重试');
-                });
-            }
-        },*/ {
+            }, {
             name: 'click a.js-register',
             handler: function (oEvent) {
                 oEvent.preventDefault();
@@ -101,10 +70,10 @@
 //                        window.location.reload();
                         that.emit('register');
                     } else {
-                       // alert("注册失败！");
-                        oResult.msgname && that.iptError(that.usernameIpt, oResult.msgname);
+                       alert("注册失败！");
+                      /*  oResult.msgname && that.iptError(that.usernameIpt, oResult.msgname);
                         oResult.msgpwd && that.iptError(that.pwdIpt, oResult.msgpwd);
-                        oResult.msgemail && that.iptError(that.emailIpt, oResult.msgemail);
+                        oResult.msgemail && that.iptError(that.emailIpt, oResult.msgemail);*/
                     }
                 }).fail(function () {
                     alert('出现错误，请重试');

@@ -125,8 +125,8 @@ public class UserService {
         return userDAO.updatePassword(id,password);
     }
 
-    //根据id 判断用户的权限
+   /* //根据id 判断用户的权限
     public int selectAuthorityById(int id){
         return userDAO.selectAuthorityById(id);
-    }
+    }*/
 }

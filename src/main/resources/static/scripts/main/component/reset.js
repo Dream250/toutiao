@@ -1,39 +1,31 @@
+/**
+ * Created by Administrator on 2017/9/24.
+ */
 (function (window) {
-    var PopupLogin = Base.createClass('main.component.PopupLogin');
+    var Reset = Base.createClass('main.component.Reset');
     var Popup = Base.getClass('main.component.Popup');
     var Component = Base.getClass('main.component.Component');
     var Util = Base.getClass('main.base.Util');
 
-    Base.mix(PopupLogin, Component, {
+    Base.mix(Reset, Component, {
         _tpl: [
             '<div class="wrapper-content clearfix">',
-                '<div class="input-section">',
-                    '<div class="form-group">',
-                        '<label class="control-label">用户名</label>',
-                        '<div class="control-group js-username"><input type="text" placeholder="请输入用户名"></div>',
-                    '</div>',
-                    '<div class="form-group">',
-                        '<label class="control-label">密码</label>',
-                        '<div class="control-group js-pwd"><input type="password" placeholder="请输入密码"></div>',
-                    '</div>',
+            '<div class="input-section">',
+            '<div class="form-group">',
+            '<label class="control-label">用户名</label>',
+            '<div class="control-group js-user"><input type="text" placeholder="请输入用户名"></div>',
+            '</div>',
+            '<div class="form-group">',
+            '<label class="control-label">重置密码</label>',
+            '<div class="control-group js-pass"><input type="password" placeholder="请输入重置密码"></div>',
+            '</div>',
 
-                /*'<div class="form-group">',
-                    '<label class="control-label">邮箱</label>',
-                    '<div class="control-group js-email"><input type="email" placeholder="邮箱 (登录时不用填写)"></div>',
-                '</div>',*/
-
-                    '<div class="form-group about-pwd">',
-                        '<div class="keep-pwd">',
-                            '<label><input type="checkbox"  class="js-rember"> 记住登录</label>',
-                        '</div>',
-                    '</div>',
-                    '<div class="form-group">',
-                        '<div class="col-input-login">',
-                            '<a class="btn btn-info js-login" href="javascript:void(0);">登录</a>',
-                            /*'<a class="btn btn-info js-register" href="javascript:void(0);">注册</a>',*/
-                        '</div>',
-                    '</div>',
-                '</div>',
+            '<div class="form-group">',
+            '<div class="col-input-login">',
+            '<a class="btn btn-info js-reset" href="javascript:void(0);">确认</a>',
+            '</div>',
+            '</div>',
+            '</div>',
             '</div>'
         ].join(''),
         listeners: [{
@@ -42,12 +34,12 @@
             handler: function () {
                 var that = this;
                 var oEl = that.getEl();
-                that.usernameIpt = oEl.find('div.js-username');
-                that.pwdIpt = oEl.find('div.js-pwd');
+                that.usernameIpt = oEl.find('div.js-user');
+                that.pwdIpt = oEl.find('div.js-pass');
                 that.initCpn();
             }
         }, {
-            name: 'click a.js-login',
+            name: 'click a.js-reset',
             handler: function (oEvent) {
                 oEvent.preventDefault();
                 var that = this;
@@ -57,24 +49,22 @@
                 }
                 var oData = that.val();
                 $.ajax({
-                    url: '/login/',
+                    url: '/reset',
                     type: 'post',
                     dataType: 'json',
                     data: {
-                        username: oData.username,
-                        password: oData.pwd,
-                        rember: oData.rember ? 1 : 0
+                        username: oData.usernameIpt,
+                        password: oData.pwdIpt
                     }
                 }).done(function (oResult) {
                     if (oResult.code === 0) {
-//                        window.location.reload();
-                        that.emit('login');
+                        window.location.reload();
+                        alert(oResult.msg);
                     } else {
-                        oResult.msgname && that.iptError(that.usernameIpt, oResult.msgname);
-                        oResult.msgpwd && that.iptError(that.pwdIpt, oResult.msgpwd);
+                        alert(oResult.msg);
                     }
                 }).fail(function () {
-                    alert('出现错误，请重试');
+                    alert("修改失败!");
                 });
             }
         }],
@@ -91,19 +81,20 @@
 
     function fStaticShow(oConf) {
         var that = this;
-        var oLogin = new PopupLogin(oConf);
+        var oReset = new Reset(oConf);
         var oPopup = new Popup({
+            title: '重置密码',
             width: 540,
-            content: oLogin.html()
+            content: oReset.html()
         });
-        oLogin._popup = oPopup;
+        oReset._popup = oPopup;
         Component.setEvents();
     }
 
     function fInitialize(oConf) {
         var that = this;
         delete oConf.renderTo;
-        PopupLogin.superClass.initialize.apply(that, arguments);
+        Reset.superClass.initialize.apply(that, arguments);
     }
 
     function fInitCpn() {
@@ -114,21 +105,17 @@
 
     function fVal(oData) {
         var that = this;
-        var oEl = that.getEl();
         var oUsernameIpt = that.usernameIpt.find('input');
         var oPwdIpt = that.pwdIpt.find('input');
-        var oRemberChk = oEl.find('.js-rember');
 
         if (arguments.length === 0) {
             return {
-                username: $.trim(oUsernameIpt.val()),
-                pwd: $.trim(oPwdIpt.val()),
-                rember: oRemberChk.prop('checked')
+                usernameIpt: $.trim(oUsernameIpt.val()),
+                pwdIpt: $.trim(oPwdIpt.val())
             };
         } else {
-            oUsernameIpt.val($.trim(oData.username));
-            oPwdIpt.val($.trim(oData.pwd));
-            oRemberChk.prop('checked', !!oData.rember);
+            oUsernameIpt.val($.trim(oData.usernameIpt));
+            oPwdIpt.val($.trim(oData.pwdIpt));
         }
     }
 
@@ -136,23 +123,21 @@
         var that = this;
         var oData = that.val();
         var bRight = true;
-        /*
-        if (!Util.isEmail(oData.email)) {
-            that.iptError(that.emailIpt, '请填写正确的邮箱');
-            bRight = false;
-        }*/
-        if (!oData.username) {
+
+        if (!oData.usernameIpt) {
             that.iptError(that.usernameIpt, '用户名不能为空');
             bRight = false;
             return bRight;
         }
 
-        if (!oData.pwd) {
+        if (!oData.pwdIpt) {
             that.iptError(that.pwdIpt, '密码不能为空');
             bRight = false;
-        } else if (oData.pwd.length < 6) {
+            return bRight;
+        } else if (oData.pwdIpt.length < 6) {
             that.iptError(that.pwdIpt, '密码不能小于6位');
             bRight = false;
+            return bRight;
         }
         return bRight;
     }
@@ -166,7 +151,7 @@
             oIpt.append('<i class="input-icon icon-ok-sign"></i>');
         }
     }
-    
+
     function fIptError(oIpt, sMsg) {
         var that = this;
         oIpt = $(oIpt);
