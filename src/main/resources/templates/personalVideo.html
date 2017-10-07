@@ -46,13 +46,23 @@
                                 <a target="_blank" rel="external nofollow" >$!{v2.video.title}</a>
                             </h3>
                             <div class="meta">
-                                <!-- $!{vo.news.link}-->
                                         <span>
                                             <i class="fa icon-comment"></i> $!{v2.video.commentCount}
                                         </span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="delete">
+                        <h4 class="media-heading">
+                            <small class="date">$date.format('yyyy-MM-dd HH:mm:ss', $v2.video.createdDate)
+                            </small>
+                        </h4>
+                        <div>
+                            <a href="/delete/?newstype=2&newsid=$!{v2.video.id}" id="del-link" name="4009580">删除</a>
+                        </div>
+                    </div>
+
                     <div class="user-info">
                         <div class="user-avatar">
                             <a href="javascript:void(0);"><img width="32" class="img-circle" src="$!{vo.user.headUrl}"></a>

@@ -10,22 +10,21 @@
     Base.mix(Reset, Component, {
         _tpl: [
             '<div class="wrapper-content clearfix">',
-            '<div class="input-section">',
-            '<div class="form-group">',
-            '<label class="control-label">用户名</label>',
-            '<div class="control-group js-user"><input type="text" placeholder="请输入用户名"></div>',
-            '</div>',
-            '<div class="form-group">',
-            '<label class="control-label">重置密码</label>',
-            '<div class="control-group js-pass"><input type="password" placeholder="请输入重置密码"></div>',
-            '</div>',
-
-            '<div class="form-group">',
-            '<div class="col-input-login">',
-            '<a class="btn btn-info js-reset" href="javascript:void(0);">确认</a>',
-            '</div>',
-            '</div>',
-            '</div>',
+                '<div class="input-section">',
+                    '<div class="form-group">',
+                        '<label class="control-label">用户名</label>',
+                        '<div class="control-group js-user"><input type="text" placeholder="请输入用户名"></div>',
+                    '</div>',
+                    '<div class="form-group">',
+                        '<label class="control-label">重置密码</label>',
+                        '<div class="control-group js-pass"><input type="password" placeholder="请输入重置密码"></div>',
+                    '</div>',
+                    '<div class="form-group">',
+                        '<div class="col-input-login">',
+                            '<a class="btn btn-info js-reset" href="javascript:void(0);">确认</a>',
+                        '</div>',
+                    '</div>',
+                '</div>',
             '</div>'
         ].join(''),
         listeners: [{
@@ -83,7 +82,7 @@
         var that = this;
         var oReset = new Reset(oConf);
         var oPopup = new Popup({
-            title: '重置密码',
+            title: '管理权限——重置密码',
             width: 540,
             content: oReset.html()
         });

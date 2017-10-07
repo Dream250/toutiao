@@ -5,7 +5,9 @@ package com.hjj;
  */
 
 import com.hjj.model.Message;
+import com.hjj.model.News;
 import com.hjj.service.MessageService;
+import com.hjj.service.NewsService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +21,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = ToutiaoApplication.class)
 public class MessageTest {
-    @Autowired
+    /*@Autowired
     MessageService messageService;
 
     @Test
@@ -28,8 +30,16 @@ public class MessageTest {
 
         System.out.println("messageList.size :"+messageList.size());
         Assert.assertNotNull(messageList);
-        /*likeService.like(123,1,1);
+        *//*likeService.like(123,1,1);
         Assert.assertEquals(1,likeService.getLikeStatus(123,1,1));
-        System.out.print("A");*/
+        System.out.print("A");*//*
+    }*/
+    @Autowired
+    NewsService newsService;
+
+    @Test
+    public void test(){
+        List<News> list=newsService.selectByKeyWorlds("图",0,100);
+        System.out.println("list.size()++++++++++++"+list.size());
     }
 }

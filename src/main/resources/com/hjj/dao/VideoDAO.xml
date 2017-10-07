@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hjj.dao.VideoDAO">
     <sql id="table">video</sql>
-    <sql id="selectFields">id,title, link, video, like_count,
+    <sql id="selectFields">id,title, content, video, like_count,
         comment_count,created_date,user_id
     </sql>
     <select id="selectByUserIdAndOffset" resultType="com.hjj.model.Video">
@@ -11,9 +11,22 @@
         <include refid="selectFields"/>
         FROM
         <include refid="table"/>
+        WHERE
         <if test="userId != 0">
-            WHERE user_id = #{userId}
+             user_id = #{userId} and
         </if>
+         status = #{status}
+        ORDER BY id DESC
+        LIMIT #{offset},#{limit}
+    </select>
+
+    <select id="selectByKeyWorlds" resultType="com.hjj.model.Video">
+        SELECT
+        <include refid="selectFields"/>
+        FROM
+        <include refid="table"/>
+        WHERE title like #{keywords}  or content like #{keywords}
+          and status = #{status}
         ORDER BY id DESC
         LIMIT #{offset},#{limit}
     </select>

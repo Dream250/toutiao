@@ -5,6 +5,7 @@ import com.hjj.service.LikeService;
 import com.hjj.service.NewsService;
 import com.hjj.service.UserService;
 import com.hjj.service.VideoService;
+import com.hjj.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,5 +76,20 @@ public class PersonalController {
         vo.set("videos",video);
         model.addAttribute("vo",vo);*/
         return "personal";
+    }
+
+    @RequestMapping(path={"/delete/"},method = {RequestMethod.GET,RequestMethod.POST})
+    public String delete(@RequestParam("newstype") int newstype,
+                         @RequestParam("newsid") int newsid){
+        try{
+            if(newstype == 1){
+                newsService.delete(newsid);
+            }else if(newstype == 2){
+                videoService.delete(newsid);
+            }
+            return "/personal?userId="+hostHolder.getUser().getId();
+        }catch(Exception e){
+            return Util.getJSONString(1, "删除失败！");
+        }
     }
 }

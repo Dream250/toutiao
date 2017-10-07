@@ -8,12 +8,21 @@ import java.util.Date;
 public class News {
   private int id;
   private String title;
-  private String link;
+    private String content;
   private String image;
   private int likeCount;
   private int commentCount;
   private Date createdDate;
   private int userId;
+    private int status;
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
   public int getId() {
     return id;
   }
@@ -26,12 +35,13 @@ public class News {
   public void setTitle(String title) {
     this.title = title;
   }
-  public String getLink() {
-    return link;
-  }
-  public void setLink(String link) {
-    this.link = link;
-  }
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
   public String getImage() {
     return image;
   }

@@ -138,7 +138,7 @@ public class NewsController {
             news.setImage(image);
             news.setCreatedDate(new Date());
             news.setTitle(title);
-            news.setLink(link);
+            news.setContent(link);
             newsService.addNews(news);
             return Util.getJSONString(0);
         }catch (Exception e){

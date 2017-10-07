@@ -50,7 +50,7 @@ public class InitDatebaseTests {
             news.setLikeCount(i+1);
             news.setUserId(i);
             news.setTitle("title");
-            news.setLink("http://www.baidu.com");
+            news.setContent("http://www.baidu.com");
             newsDAO.addNews(news);
 
 

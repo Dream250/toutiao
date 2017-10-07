@@ -10,20 +10,27 @@ import java.util.List;
 @Mapper
 public interface NewsDAO {
     String TABLE_NAME="news";
-    String INSERT_FIELDS="title,link,image,like_count,comment_count,created_date," +
+    String INSERT_FIELDS="title,content,image,like_count,comment_count,created_date," +
             "user_id";
     String SELECT_FIELDS="id,"+INSERT_FIELDS;
 
     @Insert({"insert into",TABLE_NAME,"(",INSERT_FIELDS,") values (" +
-            "#{title},#{link},#{image},#{likeCount},#{commentCount},#{createdDate},#{userId})"})
+            "#{title},#{content},#{image},#{likeCount},#{commentCount},#{createdDate},#{userId})"})
     void addNews(News news);
 
     @Select({"select ",SELECT_FIELDS,"from",TABLE_NAME,"where id=#{id}"})
     News selectById(int id);
 
+    @Update({"update ",TABLE_NAME," set status = #{status} where id = #{id}"})
+    void updateNewsStatus(@Param("status") int status,
+                          @Param("id") int id);
 
     List<News> selectByUserIdAndOffset(@Param("userId") int userId, @Param("offset") int offset,
-                                       @Param("limit") int limit);
+                                       @Param("limit") int limit,@Param("status") int status);
+
+    List<News> selectByKeyWorlds(
+                                @Param("keywords") String keywords,@Param("offset") int offset,
+                                 @Param("limit") int limit,@Param("status") int status);
 
     @Update({"update ", TABLE_NAME, " set comment_count = #{commentCount} where id=#{id}"})
     int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);
@@ -33,5 +40,8 @@ public interface NewsDAO {
 
     @Select({"select ", SELECT_FIELDS , " from ", TABLE_NAME, " where id=#{id}"})
     News getById(int id);
+
+
+
 
 }

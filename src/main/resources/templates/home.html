@@ -4,9 +4,23 @@
             <div class="jscroll-inner">
                 <div class="daily">
                     <h2 class="date">
-                        <i class="fa icon-calendar"></i>
-                        <span>资&nbsp;讯&nbsp;分&nbsp;享</span>
+                        <!--<div class="row">-->
+                            <div class="col-md-4">
+                                <i class="fa icon-calendar"></i>
+                                <span>资&nbsp;讯&nbsp;分&nbsp;享</span>
+                            </div>
+                            <div class="col-md-8">
+                                <form id="search" action="/search/$!{newstype}?" class="navbar-form navbar-right" role="search" method="post">
+                                    <div class="form-group" >
+                                        <input id="keywords" name="keywords" type="text" value="$!{kw}" class="form-control" placeholder="请输入要查询的关键字..."
+                                               required oninvalid="setCustomValidity('关键字不能为空~');" oninput="setCustomValidity('');">
+                                    </div>
+                                    <button type="submit" class="btn btn-default btn-info" onclick="search()">搜索</button>
+                                </form>
+                            </div>
+                       <!-- </div>-->
                     </h2>
+
                     #set($cur_date = '')
                     #foreach($vo in $vos)
                     #if ($cur_date != $date.format('yyyy-MM-dd', $vo.news.createdDate))
@@ -44,19 +58,33 @@
                                         <a target="_blank" rel="external nofollow" >$!{vo.news.title}</a>
                                     </h3>
                                     <div class="meta">
-                                       <!-- $!{vo.news.link}-->
+                                       <!-- $!{vo.news.content}-->
                                         <span>
                                             <i class="fa icon-comment"></i> $!{vo.news.commentCount}
                                         </span>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="delete">
+                                <h4 class="media-heading">
+                                    <small class="date">$date.format('yyyy-MM-dd HH:mm:ss', $vo.news.createdDate)
+                                    </small>
+                                </h4>
+                                #if($authority == 1)
+                                <div>
+                                    <a href="/delete?newstype=1&page=$!{cur_page}&newsid=$!{vo.news.id}" id="del-link" name="4009580">删除</a>
+                                </div>
+                                #end
+                            </div>
+
                             <div class="user-info">
                                 <div class="user-avatar">
                                     <a href="/personal?userId=$!{vo.user.id}"><img width="32" class="img-circle" src="$!{vo.user.headUrl}"></a>
                                 </div>
-                            </div>
-                            <div class="subject-name">来自 <a href="/personal?userId=$!{vo.user.id}">$!{vo.user.name}</a></div>
+                                </div>
+                                    <div class="subject-name">来自 <a href="/personal?userId=$!{vo.user.id}">$!{vo.user.name}</a>
+                                </div>
                         </div>
                     #if ($foreach.count == $vos.size()) ##最后有个元素要收尾
                     </div>
@@ -93,7 +121,7 @@
 </div>
 #if ($pop)
 <script>
-    window.loginpop = $!{pop};
+    window.loginpop = $!{pop}
 </script>
 <script type="text/javascript" src="/scripts/main/site/home.js"></script>
 #end

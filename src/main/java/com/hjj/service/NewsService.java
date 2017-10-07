@@ -62,6 +62,10 @@ public class NewsService {
         return newsDAO.getById(newsId);
     }
 
+    public void delete(int id){
+        newsDAO.updateNewsStatus(1,id); //1代表已删除
+    }
+
     public News selectById(int newsId){
         return newsDAO.selectById(newsId);
     }
@@ -75,6 +79,12 @@ public class NewsService {
     }
 
     public List<News> selectByUserIdAndOffset(int userId,int offset, int limit){
-        return newsDAO.selectByUserIdAndOffset(userId,offset,limit);
+        return newsDAO.selectByUserIdAndOffset(userId,offset,limit,0);//选择未被删除的，status=0
+    }
+
+    //根据关键字匹配 title or content 查询 news
+    public List<News> selectByKeyWorlds(String keywords,int offset, int limit){
+        keywords="%"+keywords+"%";
+        return newsDAO.selectByKeyWorlds(keywords,offset,limit,0);
     }
 }

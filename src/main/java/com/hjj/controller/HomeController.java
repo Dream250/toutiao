@@ -4,7 +4,6 @@ package com.hjj.controller;
 import com.hjj.model.*;
 import com.hjj.service.LikeService;
 import com.hjj.service.NewsService;
-import com.hjj.service.ToutiaoService;
 import com.hjj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +23,6 @@ public class HomeController {
     NewsService newsService;
     @Autowired
     UserService userService;
-    @Autowired
-    ToutiaoService toutiaoService;
     @Autowired
     HostHolder hostHolder;
     @Autowired
@@ -48,7 +45,7 @@ public class HomeController {
     public String page(@RequestParam(value="page") int page,
                        @RequestParam(value="pop",defaultValue = "0") int pop,
                        Model model){
-        List<ViewObject> list=getNews(0,0,15);
+        List<ViewObject> list=getNews(0,0,100);
         //总记录数
         int recordtotal=list.size();
         //每页的记录数
@@ -84,7 +81,7 @@ public class HomeController {
     }
 
     private List<ViewObject> getNews(int userId, int offset, int limit) {
-        List<News> newsList = toutiaoService.getLatestNews(userId, offset, limit);
+        List<News> newsList = newsService.selectByUserIdAndOffset(userId,offset,limit);
         int localUserId = hostHolder.getUser() !=null?hostHolder.getUser().getId():0;
         List<ViewObject> vos = new ArrayList<>();
         for (News news : newsList) {

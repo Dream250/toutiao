@@ -30,7 +30,7 @@
                         <h3>$!{news.title}</h3>
                     </center>
                     <!--<div class="meta">
-                        $!{news.link}
+                        $!{news.content}
                               <span>
                                   <i class="fa icon-comment"></i> $!{news.commentCount}
                               </span>
@@ -52,7 +52,7 @@
             <br/>
             <div>
                 <h4>
-                    $!{news.link}
+                    $!{news.content}
                 </h4>
             </div>
             <br/>
@@ -93,50 +93,7 @@
             </div>
             #end
         </div>
-
     </div>
-   #* <!--<script type="text/javascript">
-          $(function(){
-
-            // If really is weixin
-            $(document).on('WeixinJSBridgeReady', function() {
-
-              $('.weixin-qrcode-dropdown').show();
-
-              var options = {
-                "img_url": "",
-                "link": "http://nowcoder.com/j/wt2rwy",
-                "desc": "",
-                "title": "读《Web 全栈工程师的自我修养》"
-              };
-
-              WeixinJSBridge.on('menu:share:appmessage', function (argv){
-                WeixinJSBridge.invoke('sendAppMessage', options, function (res) {
-                  // _report('send_msg', res.err_msg)
-                });
-              });
-
-              WeixinJSBridge.on('menu:share:timeline', function (argv) {
-                WeixinJSBridge.invoke('shareTimeline', options, function (res) {
-                  // _report('send_msg', res.err_msg)
-                });
-              });
-
-              // $(window).on('touchmove scroll', function() {
-              //   if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-              //     $('div.backdrop').show();
-              //     $('div.share-help').show();
-              //   } else {
-              //     $('div.backdrop').hide();
-              //     $('div.share-help').hide();
-              //   }
-              // });
-
-            });
-
-          })
-
-    </script> -->*#
     <script type="text/javascript" src="/scripts/main/site/detail.js"></script>
 </div>
 #parse("footer.html")

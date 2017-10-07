@@ -8,12 +8,31 @@ import java.util.Date;
 public class Video {
     private int id;
     private String title;
-    private String link;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    private String content;
     private String video;
     private int likeCount;
     private int commentCount;
     private Date createdDate;
     private int userId;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public int getId() {
         return id;
     }
@@ -25,12 +44,6 @@ public class Video {
     }
     public void setTitle(String title) {
         this.title = title;
-    }
-    public String getLink() {
-        return link;
-    }
-    public void setLink(String link) {
-        this.link = link;
     }
 
     public int getLikeCount() {

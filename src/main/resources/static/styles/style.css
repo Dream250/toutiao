@@ -5255,6 +5255,16 @@ a.text-#000000:hover {
 .post .subject-name a {
   font-size: 12px;
 }
+
+.post .delete {
+    width: 150px;
+    position: absolute;
+    right: 80px;
+    top: 20px;
+    text-align: center;
+}
+
+
 /* line 139, /var/www/prod/v2.toutiao.io/app/assets/stylesheets/posts.scss */
 .post .user-info {
   width: 100px;

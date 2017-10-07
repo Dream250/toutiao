@@ -13,9 +13,6 @@
     });
 
     function fInitialize() {
-        if (window.loginpop > 0) {
-
-        }
     }
 
     function fReset() {

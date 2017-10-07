@@ -34,6 +34,16 @@ public class VideoService {
     public List<Video> getLatestNews(
             int userId,int offset,int limit
     ){
-        return videoDAO.selectByUserIdAndOffset(userId,offset,limit);
+        return videoDAO.selectByUserIdAndOffset(userId,offset,limit,0);//选择未被删除的，status=0
+    }
+
+    public void delete(int id){
+        videoDAO.updateVideoStatus(1,id); //1代表已删除
+    }
+
+    //根据关键字匹配 title or content 查询 news
+    public List<Video> selectByKeyWorlds(String keywords,int offset, int limit){
+        keywords="%"+keywords+"%";
+        return videoDAO.selectByKeyWorlds(keywords,offset,limit,0);
     }
 }

@@ -51,7 +51,7 @@ public class VideoController {
             }
             vi.setVideo(video);
             vi.setTitle(title);
-            vi.setLink(link);
+            vi.setContent(link);
             vi.setCreatedDate(new Date());
             videoService.addVideo(vi);
             return Util.getJSONString(0);   //发布成功！
@@ -103,7 +103,7 @@ public class VideoController {
     public String page(@RequestParam(value = "page") int page,
                        @RequestParam(value = "pop", defaultValue = "0") int pop,
                        Model model) {
-        List<ViewObject> list = getNews(0, 0, 15);
+        List<ViewObject> list = getNews(0, 0, 100);
         //总记录数
         int recordtotal = list.size();
         //每页的记录数

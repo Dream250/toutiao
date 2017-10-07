@@ -4,8 +4,19 @@
         <div class="jscroll-inner">
             <div class="daily">
                 <h2 class="date">
-                    <i class="fa icon-calendar"></i>
-                    <span>视&nbsp;频&nbsp;分&nbsp;享</span>
+                    <div class="col-md-4">
+                        <i class="fa icon-calendar"></i>
+                        <span>视&nbsp;频&nbsp;分&nbsp;享</span>
+                    </div>
+                    <div class="col-md-8">
+                        <form id="search" action="/search/$!{newstype}" class="navbar-form navbar-right" role="search" method="post">
+                            <div class="form-group" >
+                                <input id="keywords" name="keywords" type="text"  value="$!{kw}" class="form-control" placeholder="请输入要查询的关键字..."
+                                       required oninvalid="setCustomValidity('关键字不能为空~');" oninput="setCustomValidity('');">
+                            </div>
+                            <button type="submit" class="btn btn-default btn-info" onclick="search()">搜索</button>
+                        </form>
+                    </div>
                 </h2>
                 #set($cur_date = '')
                 #foreach($vo in $vos)
@@ -44,13 +55,26 @@
                                 <a target="_blank" rel="external nofollow">$!{vo.video.title}</a>
                             </h3>
                             <div class="meta">
-                               <!-- $!{vo.video.link}-->
-                                        <span>
-                                            <i class="fa icon-comment"></i> $!{vo.video.commentCount}
-                                        </span>
+                               <!-- $!{vo.video.content}-->
+                                <span>
+                                    <i class="fa icon-comment"></i> $!{vo.video.commentCount}
+                                </span>
                             </div>
                         </div>
                     </div>
+
+                    <div class="delete">
+                        <h4 class="media-heading">
+                            <small class="date">$date.format('yyyy-MM-dd HH:mm:ss', $vo.video.createdDate)
+                            </small>
+                        </h4>
+                        #if($authority == 1)
+                        <div>
+                            <a href="/delete?newstype=2&page=$!{cur_page}&newsid=$!{vo.video.id}" id="del-link" name="4009580">删除</a>
+                        </div>
+                        #end
+                    </div>
+
                     <div class="user-info">
                         <div class="user-avatar">
                             <a href="/personal?userId=$!{vo.user.id}"><img width="32" class="img-circle" src="$!{vo.user.headUrl}"></a>
