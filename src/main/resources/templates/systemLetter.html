@@ -3,16 +3,15 @@
 *#
 
 <div>
-    <ul class="letter-list">
+   <!-- <ul class="letter-list">
         #foreach($conversation in $systemLetter)
         <li  id="conversation-item-10005_622873"  onClick="window.location.href='/msg/detail?conversationId=$!{conversation.conversation.conversationId}'">
-            #*<!--<a class="letter-link" href="/msg/detail?conversationId=$!{conversations.conversation.conversationId}"></a>-->*#
             <div class="letter-info">
                 <span class="l-time">$!date.format('yyyy-MM-dd HH:mm:ss', $!{conversation.conversation.createdDate})</span>
                 <div class="l-operate-bar">
-                    <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
+                    &lt;!&ndash;<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
                     删除
-                    </a>-->
+                    </a>&ndash;&gt;
                     <a href="/msg/detail?conversationId=$!{conversation.conversation.conversationId}">
                         共$!{conversation.conversation.id}条会话
                     </a>
@@ -40,5 +39,41 @@
             </div>
         </li>
         #end
+    </ul>-->
+
+    <ul class="letter-list">
+        <li  id="conversation-item-10005_622873"  onClick="window.location.href='/msg/detail?conversationId=$!{systemVo.msg.conversationId}'">
+            <div class="letter-info">
+                <span class="l-time">$!date.format('yyyy-MM-dd HH:mm:ss', $!{systemVo.msg.createdDate})</span>
+                <div class="l-operate-bar">
+                    #*<!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
+                    删除
+                    </a>-->*#
+                    <a href="/msg/detail?conversationId=$!{systemVo.msg.conversationId}">
+                        共$!{systemVo.total}条会话
+                    </a>
+                </div>
+            </div>
+            <div class="chat-headbox">
+                #if($systemVo.unread > 0)
+                        <span class="msg-num">
+                            $!{systemVo.unread}
+                        </span>
+                #end
+                <a class="list-head" href="javascript:void(0);">
+                    <img alt="头像" src="$!{systemVo.user.headUrl}">
+                </a>
+            </div>
+            <div class="letter-detail">
+                <a title="$!{systemVo.user.name}" class="letter-name level-color-1">
+                    $!{systemVo.user.name}
+                </a>
+                <p class="letter-brief">
+                    <a href="/msg/detail?conversationId=$!{systemVo.msg.conversationId}">
+                        $!{systemVo.msg.content}
+                    </a>
+                </p>
+            </div>
+        </li>
     </ul>
 </div>

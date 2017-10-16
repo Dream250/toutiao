@@ -42,8 +42,8 @@ public class MessageService {
     }
 
     //系统信息 未读数量
-    public int getSystemLetterUnreadCount(int userId, String conversationId) {
-        return messageDAO.getConversationSystemLetterUnReadCount(userId, conversationId, 0);
+    public int getSystemLetterUnreadCount(int userId) {
+        return messageDAO.getConversationSystemLetterUnReadCount(userId, 0);
     }
     //朋友私信 未读数量
     public int getFriendLetterUnreadCount(int userId, String conversationId) {

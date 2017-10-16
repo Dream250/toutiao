@@ -33,11 +33,11 @@ public class LoginExceptionHandler implements EventHandler {
         message.setCreatedDate(new Date());
         messageService.addMessage(message);
 
-     /*   Map<String, Object> map = new HashMap();
+        Map<String, Object> map = new HashMap();
         map.put("username", model.getExt("username"));
 
         mailSender.sendWithHTMLTemplate(model.getExt("email"), "登录成功",
-                "mails/welcome.html", map);*/
+                "mails/welcome.html", map);
     }
 
     @Override

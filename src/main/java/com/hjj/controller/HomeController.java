@@ -5,6 +5,7 @@ import com.hjj.model.*;
 import com.hjj.service.LikeService;
 import com.hjj.service.NewsService;
 import com.hjj.service.UserService;
+import com.hjj.util.PageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,11 +42,31 @@ public class HomeController {
     }*/
 
     //  /pages/type1?page=1
-    @RequestMapping(path={"/pages/type1"})
+    @RequestMapping(path={"/pages/type1"},method = {RequestMethod.POST,RequestMethod.GET})
     public String page(@RequestParam(value="page") int page,
                        @RequestParam(value="pop",defaultValue = "0") int pop,
                        Model model){
         List<ViewObject> list=getNews(0,0,100);
+        int recordtotal=list.size();
+        int pagesize=7;
+        String targetUrl="/pages/type1";
+        String pageBar= PageUtil.genPagination(targetUrl,recordtotal,page,pagesize);
+        model.addAttribute("pageBar",pageBar);
+
+        //总共页数
+        /*int pagetotal=recordtotal/pagesize;
+        if(recordtotal%pagesize!=0)
+            pagetotal++;
+        model.addAttribute("pagetotal",pagetotal);*/
+        List<ViewObject> list2=new ArrayList<>();
+        for(int i=(page-1)*pagesize;i<page*pagesize&&i<recordtotal;i++)
+            list2.add(list.get(i));
+        model.addAttribute("vos", list2);
+        model.addAttribute("pop",pop);
+        model.addAttribute("cur_page",page);
+        model.addAttribute("newstype", NewsType.TYPE_NEWS);
+        return "home";
+        /*List<ViewObject> list=getNews(0,0,100);
         //总记录数
         int recordtotal=list.size();
         //每页的记录数
@@ -61,9 +82,8 @@ public class HomeController {
         model.addAttribute("vos", list2);
         model.addAttribute("pop",pop);
         model.addAttribute("cur_page",page);
-
         model.addAttribute("newstype", NewsType.TYPE_NEWS);
-        return "home";
+        return "home";*/
     }
 
     @RequestMapping(path={"/","/index"})

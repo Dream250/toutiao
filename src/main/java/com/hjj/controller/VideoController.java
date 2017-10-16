@@ -2,6 +2,7 @@ package com.hjj.controller;
 
 import com.hjj.model.*;
 import com.hjj.service.*;
+import com.hjj.util.PageUtil;
 import com.hjj.util.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,11 +109,15 @@ public class VideoController {
         int recordtotal = list.size();
         //每页的记录数
         int pagesize = 7;
+        String targetUrl="/pages/type2";
+        String pageBar= PageUtil.genPagination(targetUrl, recordtotal, page, pagesize);
+        model.addAttribute("pageBar",pageBar);
+
         //总共页数
-        int pagetotal = recordtotal / pagesize;
+       /* int pagetotal = recordtotal / pagesize;
         if (recordtotal % pagesize != 0)
             pagetotal++;
-        model.addAttribute("pagetotal", pagetotal);
+        model.addAttribute("pagetotal", pagetotal);*/
         List<ViewObject> list2 = new ArrayList<>();
         for (int i = (page - 1) * pagesize; i < page * pagesize && i < recordtotal; i++)
             list2.add(list.get(i));

@@ -96,12 +96,20 @@
 
     </div>
 
+
 <div class="page">
+    <nav>
+        <ul class="pagination pagination-sm">
+            $!{pageBar}
+        </ul>
+    </nav>
+</div>
+#*<!--<div class="page">
     #set($a=$cur_page)
     #if($a==1)
     <span>上一页</span>
     #else
-    <!--cur_page - 1 中间要加空格-->
+    &lt;!&ndash;cur_page - 1 中间要加空格&ndash;&gt;
     #set($a= $a - 1)
     <span><a href="/pages/type1?page=$a">上一页</a></span>
     #end
@@ -118,7 +126,7 @@
         #set($a=$a + 1)
         <span><a href="/pages/type1?page=$a">下一页</a></span>
     #end
-</div>
+</div>-->*#
 #if ($pop)
 <script>
     window.loginpop = $!{pop}

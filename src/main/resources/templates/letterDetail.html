@@ -4,7 +4,7 @@
             <ul class="letter-chatlist">
                 #foreach($msg in $messages)
                   <li id="msg-item-4009580">
-                    <a class="list-head" href="javascript:void(0);">
+                    <a class="list-head" href="/personal?userId=$!{msg.fromId}">
                         <img alt="头像" src="$!{msg.headUrl}">
                     </a>
                     <div class="tooltip fade right in">
@@ -12,10 +12,10 @@
                     <div class="tooltip-inner letter-chat clearfix">
                     <div class="letter-info">
                         <p class="letter-time">$date.format('yyyy-MM-dd HH:mm:ss', $!{msg.message.createdDate})</p>
-                        <!--<a href="javascript:void(0);" id="del-link" name="4009580">删除</a>-->
                         <a href="/msg/delete?messageId=$!{msg.message.id}&conversationId=$!{conversationId}" id="del-link" name="4009580">删除</a>
                     </div>
                     <p class="chat-content">
+                        <a href="javascript:void(0);"  name="4009580">$!{msg.fromto}:</a><br/>
                         $!{msg.message.content}
                     </p>
                     </div>

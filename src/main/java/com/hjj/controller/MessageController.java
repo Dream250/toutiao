@@ -36,58 +36,20 @@ public class MessageController {
     @Autowired
     HostHolder hostHolder;
 
-   /* @RequestMapping(path = {"/msg/list"}, method = {RequestMethod.GET})
-    public String conversationDetail(Model model){
-        try{
-            int localUserId=hostHolder.getUser().getId();
-            List<ViewObject> conversations=new ArrayList<ViewObject>();
-            List<Message> conversationList=messageService.getConversationList(localUserId,0,10);
-            for (Message msg : conversationList) {
-                ViewObject vo = new ViewObject();
-                vo.set("conversation", msg);
-                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
-                User user = userService.getUser(targetId);
-                vo.set("user", user);
-                vo.set("unread", messageService.getUnreadCount(localUserId, msg.getConversationId()));
-                conversations.add(vo);
-            }
-            model.addAttribute("conversations",conversations);
-        }catch (Exception e){
-            logger.error("获取站内信列表失败！"+e.getMessage());
-        }
-        return "letter";
-    }*/
-
     @RequestMapping(path = {"/msg/list"}, method = {RequestMethod.GET})
     public String conversationDetail(Model model){
         try{
             int localUserId=hostHolder.getUser().getId();
-            /*List<ViewObject> conversations=new ArrayList<ViewObject>();
-            List<Message> conversationList=messageService.getConversationList(localUserId,0,10);
-            for (Message msg : conversationList) {
-                ViewObject vo = new ViewObject();
-                vo.set("conversation", msg);
-                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
-                User user = userService.getUser(targetId);
-                vo.set("user", user);
-                vo.set("unread", messageService.getUnreadCount(localUserId, msg.getConversationId()));
-                conversations.add(vo);
-            }
-            model.addAttribute("conversations",conversations);*/
-            List<Message> conversationSystemLetterList = messageService.getConversationSystemLetterList(localUserId,0,10);
-            List<ViewObject> systemLetterList = new ArrayList<ViewObject>();
-            for (Message msg : conversationSystemLetterList){
-                ViewObject vo = new ViewObject();
-                vo.set("conversation", msg);
-                int targetId = msg.getFromId() == localUserId ? msg.getToId() : msg.getFromId();
-                User user = userService.getUser(targetId);
-                vo.set("user", user);
-                vo.set("unread", messageService.getSystemLetterUnreadCount(localUserId, msg.getConversationId()));
-                systemLetterList.add(vo);
-            }
-            model.addAttribute("systemLetter",systemLetterList);
+            List<Message> conversationSystemLetterList = messageService.getConversationSystemLetterList(localUserId,0,100);
+            int totalSystemLetter = conversationSystemLetterList.size();
+            ViewObject systemVo = new ViewObject();
+            systemVo.set("user",userService.getUser(0));
+            systemVo.set("unread",messageService.getSystemLetterUnreadCount(localUserId));
+            systemVo.set("total",totalSystemLetter);
+            systemVo.set("msg",conversationSystemLetterList.get(0));
+            model.addAttribute("systemVo",systemVo);
 
-            List<Message> converstaionFriendLetterList = messageService.getConversionFriendLetterList(localUserId,0,10);
+            List<Message> converstaionFriendLetterList = messageService.getConversionFriendLetterList(localUserId,0,50);
             List<ViewObject> friendLetterList = new ArrayList<ViewObject>();
             for(Message msg : converstaionFriendLetterList){
                 ViewObject vo = new ViewObject();
@@ -109,9 +71,10 @@ public class MessageController {
      public String conversationDetail(Model model, @RequestParam("conversationId") String conversationId) {
         try {
             List<ViewObject> messages = new ArrayList<>();
-            List<Message> conversationList = messageService.getConversationDetail(conversationId, 0, 10);
+            List<Message> conversationList = messageService.getConversationDetail(conversationId, 0, 50);
             for (Message msg : conversationList) {
-                messageService.updateHasRead(msg.getId(),1); // 已读
+                if(msg.getToId()==hostHolder.getUser().getId())
+                    messageService.updateHasRead(msg.getId(),1); // 已读
                 ViewObject vo = new ViewObject();
                 vo.set("message", msg);
                 User user = userService.getUser(msg.getFromId());
@@ -120,6 +83,14 @@ public class MessageController {
                 }
                 vo.set("headUrl", user.getHeadUrl());
                 vo.set("userName", user.getName());
+                String from_to="系统通知";
+                if(msg.getFromId()!=0) {
+                    String fromName = userService.getUser(msg.getFromId()).getName();
+                    String toName = userService.getUser(msg.getToId()).getName();
+                    from_to=fromName+"--->"+toName;
+                }
+                vo.set("fromId",msg.getFromId());
+                vo.set("fromto",from_to);
                 messages.add(vo);
             }
             model.addAttribute("messages", messages);
