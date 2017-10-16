@@ -125,6 +125,7 @@ public class NewsController {
         }
     }
 
+     //  /user/addNews/
     @RequestMapping(path = {"/user/addNews/"},method = {RequestMethod.POST})
     @ResponseBody
     public String addNews(@RequestParam("image") String image,

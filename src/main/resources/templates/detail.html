@@ -80,7 +80,7 @@
         <div id="comments" class="comments">
             #foreach($commentvo in $comments)
             <div class="media">
-                <a class="media-left" href="/user/$!{commentvo.user.id}">
+                <a class="media-left" href="/personal?userId=$!{commentvo.user.id}">
                     <img src="$!{commentvo.user.headUrl}">
                 </a>
                 <div class="media-body">

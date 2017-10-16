@@ -17,7 +17,7 @@
              user_id = #{userId} and
         </if>
            status = #{status}
-        ORDER BY id DESC
+        ORDER BY created_date DESC
         LIMIT #{offset},#{limit}
     </select>
 
@@ -28,7 +28,7 @@
         <include refid="table"/>
         WHERE title like #{keywords}  or content like #{keywords}
           and status = #{status}
-        ORDER BY id DESC
+        ORDER BY created_date DESC
         LIMIT #{offset},#{limit}
     </select>
 </mapper>

@@ -49,6 +49,11 @@
 
 
 <div style="width:640px;hight:450px;margin:50px auto">
+    <center>
+        <h3>
+            $!{video.content}
+        </h3>
+    </center><br/>
     <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none"
            width="640" height="264"
            poster="http://video-js.zencoder.com/oceans-clip.png"
@@ -56,24 +61,25 @@
         <source src="$!{url}" type='video/mp4' />
         <source src="$!{url}" type='video/webm' />
         <source src="$!{url}" type='video/ogg' />
-        <!--<source src="http://ouvvok8ir.bkt.clouddn.com/4bfcf8fcef6b4f28bbf7fe561a1865ed.mp4" type='video/mp4' />
+        #*<!--<source src="http://ouvvok8ir.bkt.clouddn.com/4bfcf8fcef6b4f28bbf7fe561a1865ed.mp4" type='video/mp4' />
         <source src="http://ot5i0ccl4.bkt.clouddn.com/4bfcf8fcef6b4f28bbf7fe561a1865ed.mp4" type='video/webm' />
         <source src="http://ouvvok8ir.bkt.clouddn.com/8f782e52fe8e4786baf4e35314ff8e4d.mp4" type='video/ogg' />-->
-        <!--<track kind="captions" src="stycaptions.vtt" srclang="en" label="English" />-->
+        <!--<track kind="captions" src="stycaptions.vtt" srclang="en" label="English" />-->*#
         <track kind="captions" src="/styles/example-captions.vtt" srclang="en" label="English"/>
         <track kind="subtitles" src="/styles/example-captions.vtt" srclang="en" label="English"/>
     </video>
+
 </div>
 
 
     <div class="post-comment-form">
-        <br/>
+        #*<!--<br/>
         <div>
             <h4>
                 $!{video.content}
             </h4>
         </div>
-        <br/>
+        <br/>-->*#
         #if($user)
         <span>评论 ($!{video.commentCount})</span>
         <form method="post" action="/addComment2">
@@ -98,7 +104,7 @@
     <div id="comments" class="comments">
         #foreach($commentvo in $comments)
         <div class="media">
-            <a class="media-left" href="/user/$!{commentvo.user.id}">
+            <a class="media-left" href="/personal?userId=$!{commentvo.user.id}">
                 <img src="$!{commentvo.user.headUrl}">
             </a>
             <div class="media-body">

@@ -80,11 +80,21 @@
 
                             <div class="user-info">
                                 <div class="user-avatar">
-                                    <a href="/personal?userId=$!{vo.user.id}"><img width="32" class="img-circle" src="$!{vo.user.headUrl}"></a>
+                                    #if ($user)
+                                      <a href="/personal?userId=$!{vo.user.id}"><img width="32" class="img-circle" src="$!{vo.user.headUrl}"></a>
+                                    #else
+                                      <a href="javascript:void(0);"><img width="32" class="img-circle" src="$!{vo.user.headUrl}"></a>
+                                    #end
                                 </div>
                                 </div>
-                                    <div class="subject-name">来自 <a href="/personal?userId=$!{vo.user.id}">$!{vo.user.name}</a>
-                                </div>
+                                    <div class="subject-name">来自
+                                        #if($user)
+                                            <a href="/personal?userId=$!{vo.user.id}">$!{vo.user.name}</a>
+                                        #else
+                                            <a href="javascript:void(0);">$!{vo.user.name}</a>
+                                        #end
+                                    </div>
+
                         </div>
                     #if ($foreach.count == $vos.size()) ##最后有个元素要收尾
                     </div>
